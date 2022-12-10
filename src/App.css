@@ -1,0 +1,123 @@
+@font-face {
+  font-family: "biryanilight";
+  src: url("Biryani-Light-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "biryaniregular";
+  src: url("Biryani-Regular-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "biryanibold";
+  src: url("Biryani-Bold-webfont.woff") format("woff");
+
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Main Layout */
+
+.App {
+  text-align: center;
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: calc(10px + 2vmin);
+  font-family: "biryanilight";
+  color: white;
+}
+
+.Main {
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 15px;
+}
+
+.Third {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.Half {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+/* Navbar Styling */
+
+.Navbar {
+  height: 5rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.Logo {
+  font-family: "biryanibold";
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  width: 4rem;
+  height: 4rem;
+}
+
+.Menu {
+  display: flex;
+  font-size: 1.3rem;
+}
+
+ul {
+  list-style: none;
+}
+
+/* Footer Styling */
+
+.Links {
+  display: flex;
+  font-size: 1rem;
+}
+
+/* Main Graph Styling */
+.main-graph {
+  border: 6px #6d28d9 solid;
+  width: 100%;
+  align: 0 center;
+  min-height: 30vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Sub Graph Styling */
+
+.sub-graph {
+  border: 6px #6d28d9 solid;
+  width: 45%;
+  align: 0 center;
+  min-height: 30vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Stats Styling */
+.stats {
+  border: 6px #6d28d9 solid;
+  width: 30%;
+  min-height: 30vh;
+}
