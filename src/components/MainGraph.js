@@ -1,11 +1,8 @@
-// import shortenRate from "../helperFunctions/shortenRate";
-// import humanTime from "../helperFunctions/humanTime";
-
 import Chart from "chart.js/auto";
 
-import { Bar } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 
-function MainGraph({ chartData, handleClick }) {
+function MainGraph({ chartData, handleClick, coin }) {
   return (
     <div className="main-graph">
       <div className="crypto-icons">
@@ -29,13 +26,13 @@ function MainGraph({ chartData, handleClick }) {
         />
       </div>
 
-      <Bar
+      <Line
         data={chartData}
         options={{
           plugins: {
             title: {
               display: true,
-              text: "Users Gained between 2016-2020",
+              text: `${coin} Last 14 Days`,
             },
             legend: {
               display: false,

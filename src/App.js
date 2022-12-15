@@ -1,4 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+// Helper Functions
+import shortenRate from "./helperFunctions/shortenRate";
+import humanTime from "./helperFunctions/humanTime";
 
 import "./App.css";
 import Navbar from "./components/Navbar";
@@ -7,12 +11,12 @@ import MainGraph from "./components/MainGraph";
 import Stats from "./components/Stats";
 import SubGraph from "./components/SubGraph";
 
-import { chartRawData } from "./utils/Data";
+//import { chartRawData } from "./utils/Data";
 import { fakeHistData } from "./utils/fakeHistData";
 import { fakeCoinData } from "./utils/fakeCoinData";
 
 function App() {
-  // const apiKey = process.env.REACT_APP_COIN_API_KEY;
+  const apiKey = process.env.REACT_APP_COIN_API_KEY;
 
   const [primaryCoin, setPrimaryCoin] = useState(fakeCoinData);
   const [mainCoinSelected, setMainCoinSelected] = useState("BTC");
@@ -21,43 +25,51 @@ function App() {
   // Prepares Raw Data for Chart.js
 
   const [chartData, setChartData] = useState({
-    labels: chartRawData.map((data) => data.year),
+    labels: histDataMainCoin.map((data) => humanTime(data.time_period_start)),
     datasets: [
       {
-        label: "Users Gained ",
-        data: chartRawData.map((data) => data.userGain),
-        backgroundColor: [
-          "rgba(75,192,192,1)",
-          "#ecf0f1",
-          "#50AF95",
-          "#f3ba2f",
-          "#2a71d0",
-        ],
-        borderColor: "black",
-        borderWidth: 2,
+        label: "Dollar Price",
+        data: histDataMainCoin.map((data) => shortenRate(data.rate_close)),
+        borderColor: "rgb(53, 162, 235)",
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        borderWidth: 3,
       },
     ],
   });
 
-  //const actualCoinStateUrl = `https://rest-sandbox.coinapi.io/v1/exchangerate/${mainCoinSelected}/EUR?apikey=${apiKey}`;
-  // const histDataUrl = `https://rest.coinapi.io/v1/exchangerate/BTC/USD/history?period_id=1DAY&time_start=2022-12-01T00:00:00&time_end=2022-12-14T00:00:00&apikey=${apiKey}`;
+  const actualCoinStateUrl = `https://rest-sandbox.coinapi.io/v1/exchangerate/${mainCoinSelected}/EUR?apikey=${apiKey}`;
+  const histDataUrl = `https://rest.coinapi.io/v1/exchangerate/${mainCoinSelected}/USD/history?period_id=1DAY&time_start=2022-12-01T00:00:00&time_end=2022-12-14T00:00:00&apikey=${apiKey}`;
 
   function handlePrimaryCoinSelection(e) {
     setMainCoinSelected(e.target.alt);
+
+    setChartData({
+      labels: histDataMainCoin.map((data) => humanTime(data.time_period_start)),
+      datasets: [
+        {
+          label: "Dollar Price",
+          data: histDataMainCoin.map((data) => shortenRate(data.rate_close)),
+          borderColor: "rgb(53, 162, 235)",
+          backgroundColor: "rgba(255, 99, 132, 0.5)",
+          borderWidth: 3,
+        },
+      ],
+    });
   }
 
-  // useEffect(() => {
-  //   console.log("Fetching Coin Data");
-  //   fetch(actualCoinStateUrl)
-  //     .then((res) => res.json())
-  //     .then((data) => setPrimaryCoin(data));
-  // }, [actualCoinStateUrl]);
+  useEffect(() => {
+    fetch(actualCoinStateUrl)
+      .then((res) => res.json())
+      .then((data) => setPrimaryCoin(data));
+  }, [actualCoinStateUrl]);
 
-  // useEffect(() => {
-  //   fetch(histDataUrl)
-  //     .then((res) => res.json())
-  //     .then((data) => setHistDataMainCoin(data));
-  // }, [histDataUrl]);
+  useEffect(() => {
+    console.log(`Fetching Hist Data ${mainCoinSelected}`);
+    fetch(histDataUrl)
+      .then((res) => res.json())
+      .then((data) => setHistDataMainCoin(data));
+    console.log(histDataMainCoin);
+  }, [histDataUrl]);
 
   return (
     <div className="App">
@@ -66,6 +78,7 @@ function App() {
         <MainGraph
           chartData={chartData}
           handleClick={handlePrimaryCoinSelection}
+          coin={mainCoinSelected}
         />
         <div className="Third">
           <Stats data={primaryCoin} />
