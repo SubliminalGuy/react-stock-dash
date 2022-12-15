@@ -1,20 +1,7 @@
+import shortenRate from "../helperFunctions/shortenRate";
+import humanTime from "../helperFunctions/humanTime";
+
 function MainGraph({ data, handleClick }) {
-  function realTime(date) {
-    let humanTime = new Date(date);
-    humanTime =
-      humanTime.getDate().toString() +
-      "." +
-      humanTime.getMonth().toString() +
-      "." +
-      humanTime.getFullYear().toString();
-
-    return humanTime;
-  }
-
-  function shortenRate(rate) {
-    return rate.toFixed(2);
-  }
-
   return (
     <div className="main-graph">
       <div className="crypto-icons">
@@ -37,8 +24,9 @@ function MainGraph({ data, handleClick }) {
           onClick={(e) => handleClick(e)}
         />
       </div>
+
       <p>
-        {data.asset_id_base} Course from {realTime(data.time)}
+        {data.asset_id_base} Course from {humanTime(data.time)}
       </p>
       <p>EUR {shortenRate(data.rate)}</p>
     </div>
