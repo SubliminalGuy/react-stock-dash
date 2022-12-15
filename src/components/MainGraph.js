@@ -1,7 +1,11 @@
-import shortenRate from "../helperFunctions/shortenRate";
-import humanTime from "../helperFunctions/humanTime";
+// import shortenRate from "../helperFunctions/shortenRate";
+// import humanTime from "../helperFunctions/humanTime";
 
-function MainGraph({ data, handleClick }) {
+import Chart from "chart.js/auto";
+
+import { Bar } from "react-chartjs-2";
+
+function MainGraph({ chartData, handleClick }) {
   return (
     <div className="main-graph">
       <div className="crypto-icons">
@@ -25,10 +29,20 @@ function MainGraph({ data, handleClick }) {
         />
       </div>
 
-      <p>
-        {data.asset_id_base} Course from {humanTime(data.time)}
-      </p>
-      <p>EUR {shortenRate(data.rate)}</p>
+      <Bar
+        data={chartData}
+        options={{
+          plugins: {
+            title: {
+              display: true,
+              text: "Users Gained between 2016-2020",
+            },
+            legend: {
+              display: false,
+            },
+          },
+        }}
+      />
     </div>
   );
 }

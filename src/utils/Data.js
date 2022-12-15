@@ -1,4 +1,4 @@
-export const Data = [
+export const chartRawData = [
   {
     id: 1,
     year: 2016,
