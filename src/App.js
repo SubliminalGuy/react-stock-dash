@@ -18,8 +18,11 @@ import { fakeCoinData } from "./utils/fakeCoinData";
 function App() {
   const apiKey = process.env.REACT_APP_COIN_API_KEY;
 
-  const [primaryCoin, setPrimaryCoin] = useState(fakeCoinData);
+  const [primaryCoin, setPrimaryCoin] = useState(fakeCoinData[0]);
+  const [secondaryCoin, setSecondaryCoin] = useState(fakeCoinData[1]);
+  const [thirdCoin, setThirdCoin] = useState(fakeCoinData[2]);
   const [mainCoinSelected, setMainCoinSelected] = useState("BTC");
+
   const [histDataMainCoin, setHistDataMainCoin] = useState(fakeHistData);
 
   // Prepares Raw Data for Chart.js
@@ -37,18 +40,29 @@ function App() {
     ],
   });
 
-  const actualCoinStateUrl = `https://rest-sandbox.coinapi.io/v1/exchangerate/${mainCoinSelected}/EUR?apikey=${apiKey}`;
-  const histDataUrl = `https://rest.coinapi.io/v1/exchangerate/${mainCoinSelected}/USD/history?period_id=1DAY&time_start=2022-12-01T00:00:00&time_end=2022-12-14T00:00:00&apikey=${apiKey}`;
+  const primaryCoinUrl = `https://rest-sandbox.coinapi.io/v1/exchangerate/BTC/EUR?apikey=${apiKey}`;
+  const secondaryCoinUrl = `https://rest-sandbox.coinapi.io/v1/exchangerate/ETH/EUR?apikey=${apiKey}`;
 
-  function handlePrimaryCoinSelection(e) {
+  async function handlePrimaryCoinSelection(e) {
+    const mainCoin = e.target.alt;
     setMainCoinSelected(e.target.alt);
 
+    const mainCoinHistUrl = `https://rest.coinapi.io/v1/exchangerate/${mainCoin}/EUR/history?period_id=1DAY&time_start=2022-12-02T00:00:00&time_end=2022-12-17T00:00:00&apikey=${apiKey}`;
+
+    console.log(`Fetching Hist Data ${mainCoin}`);
+    let mainCoinHistData = [];
+    await fetch(mainCoinHistUrl)
+      .then((res) => res.json())
+      .then((data) => (mainCoinHistData = data));
+
+    setHistDataMainCoin(mainCoinHistData);
+    console.log(mainCoinHistData[15]);
     setChartData({
-      labels: histDataMainCoin.map((data) => humanTime(data.time_period_start)),
+      labels: mainCoinHistData.map((data) => humanTime(data.time_period_start)),
       datasets: [
         {
           label: "Dollar Price",
-          data: histDataMainCoin.map((data) => shortenRate(data.rate_close)),
+          data: mainCoinHistData.map((data) => shortenRate(data.rate_close)),
           borderColor: "rgb(53, 162, 235)",
           backgroundColor: "rgba(255, 99, 132, 0.5)",
           borderWidth: 3,
@@ -57,19 +71,14 @@ function App() {
     });
   }
 
-  useEffect(() => {
-    fetch(actualCoinStateUrl)
-      .then((res) => res.json())
-      .then((data) => setPrimaryCoin(data));
-  }, [actualCoinStateUrl]);
-
-  useEffect(() => {
-    console.log(`Fetching Hist Data ${mainCoinSelected}`);
-    fetch(histDataUrl)
-      .then((res) => res.json())
-      .then((data) => setHistDataMainCoin(data));
-    console.log(histDataMainCoin);
-  }, [histDataUrl]);
+  // useEffect(() => {
+  //   fetch(primaryCoinUrl)
+  //     .then((res) => res.json())
+  //     .then((data) => setPrimaryCoin(data));
+  //   fetch(secondaryCoinUrl)
+  //     .then((res) => res.json())
+  //     .then((data) => setSecondaryCoin(data));
+  // }, [primaryCoinUrl, secondaryCoinUrl]);
 
   return (
     <div className="App">
@@ -82,8 +91,8 @@ function App() {
         />
         <div className="Third">
           <Stats data={primaryCoin} />
-          <Stats data={primaryCoin} />
-          <Stats data={primaryCoin} />
+          <Stats data={secondaryCoin} />
+          <Stats data={thirdCoin} />
         </div>
         <div className="Half">
           <SubGraph number={1} />

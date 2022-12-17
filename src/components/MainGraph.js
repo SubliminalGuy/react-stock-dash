@@ -24,6 +24,12 @@ function MainGraph({ chartData, handleClick, coin }) {
           alt="DOGE"
           onClick={(e) => handleClick(e)}
         />
+        <img
+          className="cur-icon"
+          src="/matic.png"
+          alt="MATIC"
+          onClick={(e) => handleClick(e)}
+        />
       </div>
 
       <Line
