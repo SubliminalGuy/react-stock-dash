@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 // Helper Functions
 import shortenRate from "./helperFunctions/shortenRate";
 import humanTime from "./helperFunctions/humanTime";
+import urlTime from "./helperFunctions/urlTime";
 
 import "./App.css";
 import Navbar from "./components/Navbar";
@@ -31,7 +32,7 @@ function App() {
     labels: histDataMainCoin.map((data) => humanTime(data.time_period_start)),
     datasets: [
       {
-        label: "Dollar Price",
+        label: "Euro Price",
         data: histDataMainCoin.map((data) => shortenRate(data.rate_close)),
         borderColor: "rgb(53, 162, 235)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
@@ -46,8 +47,8 @@ function App() {
   async function handlePrimaryCoinSelection(e) {
     const mainCoin = e.target.alt;
     setMainCoinSelected(e.target.alt);
-
-    const mainCoinHistUrl = `https://rest.coinapi.io/v1/exchangerate/${mainCoin}/EUR/history?period_id=1DAY&time_start=2022-12-02T00:00:00&time_end=2022-12-17T00:00:00&apikey=${apiKey}`;
+    const { date, newDate } = urlTime(14);
+    const mainCoinHistUrl = `https://rest.coinapi.io/v1/exchangerate/${mainCoin}/EUR/history?period_id=1DAY&time_start=${newDate}&time_end=${date}&apikey=${apiKey}`;
 
     console.log(`Fetching Hist Data ${mainCoin}`);
     let mainCoinHistData = [];
@@ -56,12 +57,12 @@ function App() {
       .then((data) => (mainCoinHistData = data));
 
     setHistDataMainCoin(mainCoinHistData);
-    console.log(mainCoinHistData[15]);
+
     setChartData({
       labels: mainCoinHistData.map((data) => humanTime(data.time_period_start)),
       datasets: [
         {
-          label: "Dollar Price",
+          label: "Euro Price",
           data: mainCoinHistData.map((data) => shortenRate(data.rate_close)),
           borderColor: "rgb(53, 162, 235)",
           backgroundColor: "rgba(255, 99, 132, 0.5)",
@@ -71,14 +72,22 @@ function App() {
     });
   }
 
-  // useEffect(() => {
-  //   fetch(primaryCoinUrl)
-  //     .then((res) => res.json())
-  //     .then((data) => setPrimaryCoin(data));
-  //   fetch(secondaryCoinUrl)
-  //     .then((res) => res.json())
-  //     .then((data) => setSecondaryCoin(data));
-  // }, [primaryCoinUrl, secondaryCoinUrl]);
+  useEffect(() => {
+    fetch(primaryCoinUrl)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data[0].rate) {
+          setPrimaryCoin(data);
+        }
+      });
+    fetch(secondaryCoinUrl)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data[0].rate) {
+          setSecondaryCoin(data);
+        }
+      });
+  }, [primaryCoinUrl, secondaryCoinUrl]);
 
   return (
     <div className="App">
