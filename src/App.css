@@ -94,26 +94,56 @@ ul {
 
 /* Main Graph Styling */
 .main-graph {
-  border: 6px #6d28d9 solid;
+  border: 6px #4f46e5 solid;
   width: 100%;
   align: 0 center;
   min-height: 30vh;
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 10px;
+}
+
+.main-graph-menu {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .crypto-icons {
-  margin-left: 10px;
-  margin-top: 5px;
   padding: 5px;
+
   display: flex;
   justify-content: space-between;
-  width: 150px;
+  align-items: center;
+  width: 160px;
+}
+
+.main-chart-dropdown {
+  margin-top: 0px;
+  padding-right: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  width: 25%;
+}
+
+#timespan {
+  font-size: 0.9rem;
+}
+
+.main-chart {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 /* Sub Graph Styling */
 
 .sub-graph {
-  border: 6px #6d28d9 solid;
+  border: 6px #4f46e5 solid;
   width: 45%;
   align: 0 center;
   min-height: 30vh;
@@ -124,12 +154,27 @@ ul {
 
 /* Stats Styling */
 .stats {
-  border: 6px #6d28d9 solid;
+  border: 6px #4f46e5 solid;
   width: 30%;
   min-height: 30vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.coin-date {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  width: 80%;
 }
 
 /* Image Styling */
 .cur-icon {
   width: 30px;
+}
+
+.cur-icon-stats {
+  width: 40px;
 }

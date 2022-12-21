@@ -23,6 +23,8 @@ function App() {
   const [secondaryCoin, setSecondaryCoin] = useState(fakeCoinData[1]);
   const [thirdCoin, setThirdCoin] = useState(fakeCoinData[2]);
   const [mainCoinSelected, setMainCoinSelected] = useState("BTC");
+  const [mainGraphTimespan, setMainGraphTimespan] = useState(14);
+  const [mainGraphPeriod, setMainGraphPeriod] = useState("1DAY");
 
   const [histDataMainCoin, setHistDataMainCoin] = useState(fakeHistData);
 
@@ -44,50 +46,67 @@ function App() {
   const primaryCoinUrl = `https://rest-sandbox.coinapi.io/v1/exchangerate/BTC/EUR?apikey=${apiKey}`;
   const secondaryCoinUrl = `https://rest-sandbox.coinapi.io/v1/exchangerate/ETH/EUR?apikey=${apiKey}`;
 
-  async function handlePrimaryCoinSelection(e) {
-    const mainCoin = e.target.alt;
+  function handlePrimaryCoinSelection(e) {
     setMainCoinSelected(e.target.alt);
-    const { date, newDate } = urlTime(14);
-    const mainCoinHistUrl = `https://rest.coinapi.io/v1/exchangerate/${mainCoin}/EUR/history?period_id=1DAY&time_start=${newDate}&time_end=${date}&apikey=${apiKey}`;
+  }
 
-    console.log(`Fetching Hist Data ${mainCoin}`);
+  function handleTimespan(e) {
+    const newTimespan = Number(e.target.value);
+    setMainGraphTimespan(newTimespan);
+    if (newTimespan > 30) {
+      setMainGraphPeriod("5DAY");
+    } else {
+      setMainGraphPeriod("1DAY");
+    }
+  }
+
+  useEffect(() => {
+    console.log("STATE", mainCoinSelected, mainGraphTimespan, mainGraphPeriod);
+    const mainCoin = mainCoinSelected;
+    const { date, newDate } = urlTime(mainGraphTimespan);
+    const period = mainGraphPeriod;
+    const mainCoinHistUrl = `https://rest.coinapi.io/v1/exchangerate/${mainCoin}/EUR/history?period_id=${period}&time_start=${newDate}&time_end=${date}&apikey=${apiKey}`;
+
     let mainCoinHistData = [];
-    await fetch(mainCoinHistUrl)
+    fetch(mainCoinHistUrl)
       .then((res) => res.json())
-      .then((data) => (mainCoinHistData = data));
+      .then((data) => setHistDataMainCoin(data));
 
     setHistDataMainCoin(mainCoinHistData);
+  }, [mainCoinSelected, mainGraphTimespan, mainGraphPeriod, apiKey]);
 
+  useEffect(() => {
+    console.log(histDataMainCoin);
     setChartData({
-      labels: mainCoinHistData.map((data) => humanTime(data.time_period_start)),
+      labels: histDataMainCoin.map((data) => humanTime(data.time_period_start)),
       datasets: [
         {
           label: "Euro Price",
-          data: mainCoinHistData.map((data) => shortenRate(data.rate_close)),
+          data: histDataMainCoin.map((data) => shortenRate(data.rate_close)),
           borderColor: "rgb(53, 162, 235)",
           backgroundColor: "rgba(255, 99, 132, 0.5)",
           borderWidth: 3,
         },
       ],
     });
-  }
+  }, [histDataMainCoin]);
 
-  useEffect(() => {
-    fetch(primaryCoinUrl)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data[0].rate) {
-          setPrimaryCoin(data);
-        }
-      });
-    fetch(secondaryCoinUrl)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data[0].rate) {
-          setSecondaryCoin(data);
-        }
-      });
-  }, [primaryCoinUrl, secondaryCoinUrl]);
+  // useEffect(() => {
+  //   fetch(primaryCoinUrl)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       if (data[0].rate) {
+  //         setPrimaryCoin(data);
+  //       }
+  //     });
+  //   fetch(secondaryCoinUrl)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       if (data[0].rate) {
+  //         setSecondaryCoin(data);
+  //       }
+  //     });
+  // }, [primaryCoinUrl, secondaryCoinUrl]);
 
   return (
     <div className="App">
@@ -96,6 +115,7 @@ function App() {
         <MainGraph
           chartData={chartData}
           handleClick={handlePrimaryCoinSelection}
+          handleTimespan={handleTimespan}
           coin={mainCoinSelected}
         />
         <div className="Third">
