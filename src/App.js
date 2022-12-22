@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 
 // Helper Functions
 import shortenRate from "./helperFunctions/shortenRate";
-import humanTime from "./helperFunctions/humanTime";
-import urlTime from "./helperFunctions/urlTime";
+
+import { urlTime, humanTime } from "./helperFunctions/timeConverters";
 
 import "./App.css";
 import Navbar from "./components/Navbar";
@@ -61,7 +61,6 @@ function App() {
   }
 
   useEffect(() => {
-    console.log("STATE", mainCoinSelected, mainGraphTimespan, mainGraphPeriod);
     const mainCoin = mainCoinSelected;
     const { date, newDate } = urlTime(mainGraphTimespan);
     const period = mainGraphPeriod;
@@ -76,7 +75,6 @@ function App() {
   }, [mainCoinSelected, mainGraphTimespan, mainGraphPeriod, apiKey]);
 
   useEffect(() => {
-    console.log(histDataMainCoin);
     setChartData({
       labels: histDataMainCoin.map((data) => humanTime(data.time_period_start)),
       datasets: [
@@ -116,6 +114,7 @@ function App() {
           chartData={chartData}
           handleClick={handlePrimaryCoinSelection}
           handleTimespan={handleTimespan}
+          timespan={mainGraphTimespan}
           coin={mainCoinSelected}
         />
         <div className="Third">

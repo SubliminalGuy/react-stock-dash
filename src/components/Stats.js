@@ -3,14 +3,12 @@ import humanTime from "../helperFunctions/humanTime";
 
 function Stats({ data }) {
   function getIcon(id) {
-    console.log(id);
     const iconChanger = {
       BTC: "/btc.svg",
       ETH: "/eth.svg",
       DOGE: "/doge.svg",
       MATIC: "/matic.png",
     };
-    console.log(iconChanger[id]);
     return iconChanger[id];
   }
 

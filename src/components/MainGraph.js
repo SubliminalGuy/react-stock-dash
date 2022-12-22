@@ -1,8 +1,10 @@
+import { timeSpanConverter } from "../helperFunctions/timeConverters";
+
 import Chart from "chart.js/auto";
 
 import { Line } from "react-chartjs-2";
 
-function MainGraph({ chartData, handleClick, handleTimespan, coin }) {
+function MainGraph({ chartData, handleClick, handleTimespan, timespan, coin }) {
   return (
     <div className="main-graph">
       <div className="main-graph-menu">
@@ -51,7 +53,7 @@ function MainGraph({ chartData, handleClick, handleTimespan, coin }) {
             plugins: {
               title: {
                 display: true,
-                text: `${coin} Last 14 Days`,
+                text: `${coin} ${timeSpanConverter(timespan)}`,
                 color: "#BAE6FD",
                 font: {
                   family: "biryaniregular",

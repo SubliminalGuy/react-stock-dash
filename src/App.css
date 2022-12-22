@@ -36,13 +36,16 @@
 
 .Main {
   width: 80%;
+  max-width: 800px;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   row-gap: 15px;
 }
 
 .Third {
   width: 100%;
+  max-width: 800px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -50,6 +53,7 @@
 
 .Half {
   width: 100%;
+  max-width: 800px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -94,8 +98,9 @@ ul {
 
 /* Main Graph Styling */
 .main-graph {
-  border: 6px #4f46e5 solid;
+  border: 5px #4f46e5 solid;
   width: 100%;
+
   align: 0 center;
   min-height: 30vh;
   display: flex;
@@ -143,7 +148,7 @@ ul {
 /* Sub Graph Styling */
 
 .sub-graph {
-  border: 6px #4f46e5 solid;
+  border: 5px #4f46e5 solid;
   width: 45%;
   align: 0 center;
   min-height: 30vh;
@@ -154,7 +159,7 @@ ul {
 
 /* Stats Styling */
 .stats {
-  border: 6px #4f46e5 solid;
+  border: 5px #4f46e5 solid;
   width: 30%;
   min-height: 30vh;
   display: flex;
