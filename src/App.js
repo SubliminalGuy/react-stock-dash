@@ -22,6 +22,7 @@ function App() {
   const [primaryCoin, setPrimaryCoin] = useState(fakeCoinData[0]);
   const [secondaryCoin, setSecondaryCoin] = useState(fakeCoinData[1]);
   const [thirdCoin, setThirdCoin] = useState(fakeCoinData[2]);
+  const [fourthCoin, setFourthCoin] = useState(fakeCoinData[3]);
   const [mainCoinSelected, setMainCoinSelected] = useState("BTC");
   const [mainGraphTimespan, setMainGraphTimespan] = useState(14);
   const [mainGraphPeriod, setMainGraphPeriod] = useState("1DAY");
@@ -45,6 +46,8 @@ function App() {
 
   const primaryCoinUrl = `https://rest-sandbox.coinapi.io/v1/exchangerate/BTC/EUR?apikey=${apiKey}`;
   const secondaryCoinUrl = `https://rest-sandbox.coinapi.io/v1/exchangerate/ETH/EUR?apikey=${apiKey}`;
+  const thirdCoinUrl = `https://rest-sandbox.coinapi.io/v1/exchangerate/MATIC/EUR?apikey=${apiKey}`;
+  const fourthCoinUrl = `https://rest-sandbox.coinapi.io/v1/exchangerate/SOL/EUR?apikey=${apiKey}`;
 
   function handlePrimaryCoinSelection(e) {
     setMainCoinSelected(e.target.alt);
@@ -55,8 +58,55 @@ function App() {
     setMainGraphTimespan(newTimespan);
     if (newTimespan > 30) {
       setMainGraphPeriod("5DAY");
+    } else if (newTimespan >= 14) {
+      setMainGraphPeriod("2DAY");
     } else {
       setMainGraphPeriod("1DAY");
+    }
+  }
+
+  function fetchPrimaryCoin() {
+    fetch(primaryCoinUrl)
+      .then((res) => res.json())
+      .then((data) => {
+        setPrimaryCoin(data);
+      });
+  }
+
+  function fetchSecondaryCoin() {
+    fetch(secondaryCoinUrl)
+      .then((res) => res.json())
+      .then((data) => {
+        setSecondaryCoin(data);
+      });
+  }
+
+  function fetchThirdCoin() {
+    fetch(thirdCoinUrl)
+      .then((res) => res.json())
+      .then((data) => {
+        setThirdCoin(data);
+      });
+  }
+
+  function fetchFourthCoin() {
+    fetch(fourthCoinUrl)
+      .then((res) => res.json())
+      .then((data) => {
+        setFourthCoin(data);
+      });
+  }
+
+  function refreshCoin(e) {
+    const coin = e.target.alt;
+    if (coin === "BTC") {
+      fetchPrimaryCoin();
+    } else if (coin === "ETH") {
+      fetchSecondaryCoin();
+    } else if (coin === "MATIC") {
+      fetchThirdCoin();
+    } else if (coin === "SOL") {
+      fetchFourthCoin();
     }
   }
 
@@ -65,11 +115,13 @@ function App() {
     const { date, newDate } = urlTime(mainGraphTimespan);
     const period = mainGraphPeriod;
     const mainCoinHistUrl = `https://rest.coinapi.io/v1/exchangerate/${mainCoin}/EUR/history?period_id=${period}&time_start=${newDate}&time_end=${date}&apikey=${apiKey}`;
-
     let mainCoinHistData = [];
     fetch(mainCoinHistUrl)
       .then((res) => res.json())
-      .then((data) => setHistDataMainCoin(data));
+      .then((data) => {
+        console.table(data);
+        setHistDataMainCoin(data);
+      });
 
     setHistDataMainCoin(mainCoinHistData);
   }, [mainCoinSelected, mainGraphTimespan, mainGraphPeriod, apiKey]);
@@ -89,23 +141,6 @@ function App() {
     });
   }, [histDataMainCoin]);
 
-  // useEffect(() => {
-  //   fetch(primaryCoinUrl)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       if (data[0].rate) {
-  //         setPrimaryCoin(data);
-  //       }
-  //     });
-  //   fetch(secondaryCoinUrl)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       if (data[0].rate) {
-  //         setSecondaryCoin(data);
-  //       }
-  //     });
-  // }, [primaryCoinUrl, secondaryCoinUrl]);
-
   return (
     <div className="App">
       <Navbar />
@@ -118,16 +153,16 @@ function App() {
           coin={mainCoinSelected}
         />
         <div className="Third">
-          <Stats data={primaryCoin} />
-          <Stats data={secondaryCoin} />
-          <Stats data={thirdCoin} />
+          <Stats data={primaryCoin} handleRefresh={refreshCoin} />
+          <Stats data={secondaryCoin} handleRefresh={refreshCoin} />
+          <Stats data={thirdCoin} handleRefresh={refreshCoin} />
         </div>
         <div className="Half">
           <SubGraph number={1} />
           <SubGraph number={2} />
         </div>
         <div className="Third">
-          <Stats data={primaryCoin} />
+          <Stats data={fourthCoin} handleRefresh={refreshCoin} />
           <Stats data={primaryCoin} />
           <Stats data={primaryCoin} />
         </div>

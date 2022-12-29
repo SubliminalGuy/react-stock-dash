@@ -1,13 +1,14 @@
 import shortenRate from "../helperFunctions/shortenRate";
-import humanTime from "../helperFunctions/humanTime";
+import { humanTime } from "../helperFunctions/timeConverters";
 
-function Stats({ data }) {
+function Stats({ data, handleRefresh }) {
   function getIcon(id) {
     const iconChanger = {
       BTC: "/btc.svg",
       ETH: "/eth.svg",
       DOGE: "/doge.svg",
       MATIC: "/matic.png",
+      SOL: "/sol.png",
     };
     return iconChanger[id];
   }
@@ -19,6 +20,7 @@ function Stats({ data }) {
           src={getIcon(data.asset_id_base)}
           alt={data.asset_id_base}
           className="cur-icon-stats"
+          onClick={(e) => handleRefresh(e)}
         />
         {humanTime(data.time)}
       </div>

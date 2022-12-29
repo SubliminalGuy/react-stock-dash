@@ -17,4 +17,10 @@ export const fakeCoinData = [
     asset_id_quote: "EUR",
     rate: 0.7530899141428436644966506274,
   },
+  {
+    time: "2022-12-29T15:32:18.0000000Z",
+    asset_id_base: "SOL",
+    asset_id_quote: "EUR",
+    rate: 8.820078551061710667903079269,
+  },
 ];
