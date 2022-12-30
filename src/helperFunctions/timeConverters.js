@@ -1,4 +1,21 @@
 /**
+ * It takes a unix timestamp and returns a human readable date
+ * @param unix - The unix timestamp you want to convert to human time.
+ * @returns A string with the date in the format DD.MM.YYYY
+ */
+export const unixToHumanTime = (unix) => {
+  let humanTime = new Date(unix * 1000);
+  humanTime =
+    humanTime.getDate().toString() +
+    "." +
+    (humanTime.getMonth() + 1).toString() +
+    "." +
+    humanTime.getFullYear().toString();
+
+  return humanTime;
+};
+
+/**
  * It takes a date in the format of a string and returns a date in the format of a string
  * @param date - The date you want to convert to human time.
  * @returns A string with the date in the format DD.MM.YYYY
@@ -58,7 +75,9 @@ export function urlTime(offset) {
  * 90.
  */
 export function timeSpanConverter(timespan) {
-  if (timespan <= 14) {
+  if (timespan <= 7) {
+    return "Last 7 Days";
+  } else if (timespan <= 14) {
     return "Last 14 Days";
   } else if (timespan <= 30) {
     return "Last Month";

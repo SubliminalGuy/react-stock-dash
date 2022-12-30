@@ -12,36 +12,40 @@ function MainGraph({ chartData, handleClick, handleTimespan, timespan, coin }) {
           <img
             className="cur-icon"
             src="/btc.svg"
-            alt="BTC"
+            alt="bitcoin"
             onClick={(e) => handleClick(e)}
           />
           <img
             className="cur-icon"
             src="/eth.svg"
-            alt="ETH"
+            alt="ethereum"
             onClick={(e) => handleClick(e)}
           />
           <img
             className="cur-icon"
             src="/doge.svg"
-            alt="DOGE"
+            alt="dogecoin"
             onClick={(e) => handleClick(e)}
           />
           <img
             className="cur-icon"
             src="/matic.png"
-            alt="MATIC"
+            alt="polygon"
             onClick={(e) => handleClick(e)}
           />
         </div>
         <div className="main-chart-dropdown">
-          <label for="dog-names">Timespan:</label>
+          <label for="dog-names" id="timespan-label">
+            Timespan:
+          </label>
           <select name="timespan" id="timespan" onChange={handleTimespan}>
-            <option value="14">Last 14 Days</option>
+            <option value="7">7 Days</option>
 
-            <option value="30">Last Month</option>
+            <option value="14">14 Days</option>
 
-            <option value="90">Last 3 Month</option>
+            <option value="30">Month</option>
+
+            <option value="90">3 Month</option>
           </select>
         </div>
       </div>

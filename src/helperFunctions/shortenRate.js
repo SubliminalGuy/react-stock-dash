@@ -4,6 +4,7 @@
  * @returns the rate rounded to 2 decimal places.
  */
 const shortenRate = (rate) => {
+  rate = Number(rate);
   return rate.toFixed(2);
 };
 

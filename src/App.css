@@ -136,7 +136,12 @@ ul {
 }
 
 #timespan {
-  font-size: 0.9rem;
+  width: 60%;
+  font-size: 0.7rem;
+}
+
+#timespan-label {
+  padding-right: 1rem;
 }
 
 .main-chart {

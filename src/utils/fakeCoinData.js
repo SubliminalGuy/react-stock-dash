@@ -6,21 +6,30 @@ export const fakeCoinData = [
     rate: 15927.946032644589112180396617,
   },
   {
-    time: "2022-12-21T09:50:16.0000000Z",
-    asset_id_base: "ETH",
-    asset_id_quote: "EUR",
-    rate: 1147.9805685180019328572362983,
+    base: "ETH",
+    last_updated: 1672233300,
+    exchange_rates: {
+      EUR: 1228.841507,
+    },
   },
   {
-    time: "2022-12-21T09:50:32.0000000Z",
-    asset_id_base: "MATIC",
-    asset_id_quote: "EUR",
-    rate: 0.7530899141428436644966506274,
+    base: "DOGE",
+    last_updated: 1672233300,
+    exchange_rates: {
+      EUR: 0.056383,
+    },
   },
   {
     time: "2022-12-29T15:32:18.0000000Z",
     asset_id_base: "SOL",
     asset_id_quote: "EUR",
     rate: 8.820078551061710667903079269,
+  },
+  {
+    base: "BTC",
+    last_updated: 1672233300,
+    exchange_rates: {
+      EUR: 18107.501706,
+    },
   },
 ];

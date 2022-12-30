@@ -1,5 +1,5 @@
 import shortenRate from "../helperFunctions/shortenRate";
-import { humanTime } from "../helperFunctions/timeConverters";
+import { unixToHumanTime } from "../helperFunctions/timeConverters";
 
 function Stats({ data, handleRefresh }) {
   function getIcon(id) {
@@ -17,14 +17,14 @@ function Stats({ data, handleRefresh }) {
     <div className="stats">
       <div className="coin-date">
         <img
-          src={getIcon(data.asset_id_base)}
-          alt={data.asset_id_base}
+          src={getIcon(data.base)}
+          alt={data.base}
           className="cur-icon-stats"
           onClick={(e) => handleRefresh(e)}
         />
-        {humanTime(data.time)}
+        {unixToHumanTime(data.last_updated)}
       </div>
-      <p>EUR {shortenRate(data.rate)}</p>
+      <p>EUR {shortenRate(data.exchange_rates.EUR)}</p>
     </div>
   );
 }
