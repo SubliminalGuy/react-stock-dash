@@ -17,16 +17,14 @@ import { fakeHistData } from "./utils/fakeHistData";
 import { fakeCoinData } from "./utils/fakeCoinData";
 
 function App() {
-  const abstractApiKey = process.env.REACT_APP_ABSTRACT_API_KEY;
-  const abstractBaseUrl = process.env.REACT_APP_ABSTRACT_BASE_URL;
+  const baseUrl = process.env.REACT_APP_COINCAP_BASE_URL;
 
-  const [primaryAbstractCoin, setPrimaryAbstractCoin] = useState(
-    fakeCoinData[4]
-  );
-  const [secondaryAbstractCoin, setSecondaryAbstractCoin] = useState(
-    fakeCoinData[1]
-  );
-  const [thirdAbstractCoin, setThirdAbstractCoin] = useState(fakeCoinData[2]);
+  const [primaryCoin, setPrimaryCoin] = useState(fakeCoinData[0]);
+  const [secondaryCoin, setSecondaryCoin] = useState(fakeCoinData[1]);
+  const [thirdCoin, setThirdCoin] = useState(fakeCoinData[2]);
+  const [fourthCoin, setFourthCoin] = useState(fakeCoinData[3]);
+  const [fifthCoin, setFifthCoin] = useState(fakeCoinData[4]);
+  const [sixthCoin, setSixthCoin] = useState(fakeCoinData[5]);
 
   const [mainCoinSelected, setMainCoinSelected] = useState("bitcoin");
   const [mainGraphTimespan, setMainGraphTimespan] = useState(14);
@@ -48,10 +46,6 @@ function App() {
     ],
   });
 
-  const primaryAbstractCoinUrl = `${abstractBaseUrl}/live/?api_key=${abstractApiKey}&base=BTC&target=EUR`;
-  const secondaryAbstractCoinUrl = `${abstractBaseUrl}/live/?api_key=${abstractApiKey}&base=ETH&target=EUR`;
-  const thirdAbstractCoinUrl = `${abstractBaseUrl}/live/?api_key=${abstractApiKey}&base=DOGE&target=EUR`;
-
   function handlePrimaryCoinSelection(e) {
     console.log(e.target.alt);
     setMainCoinSelected(e.target.alt);
@@ -62,39 +56,68 @@ function App() {
     setMainGraphTimespan(newTimespan);
   }
 
-  function fetchAbstractPrimaryCoin() {
-    fetch(primaryAbstractCoinUrl)
+  function fetchPrimaryCoin(coinshort) {
+    fetch(`${baseUrl}/assets/${coinshort}`)
       .then((res) => res.json())
       .then((data) => {
-        setPrimaryAbstractCoin(data);
+        setPrimaryCoin(data);
       });
   }
 
-  function fetchAbstractSecondaryCoin() {
-    fetch(secondaryAbstractCoinUrl)
+  function fetchSecondaryCoin(coinshort) {
+    fetch(`${baseUrl}/assets/${coinshort}`)
       .then((res) => res.json())
       .then((data) => {
-        setSecondaryAbstractCoin(data);
+        setSecondaryCoin(data);
       });
   }
 
-  function fetchAbstractThirdCoin() {
-    fetch(thirdAbstractCoinUrl)
+  function fetchThirdCoin(coinshort) {
+    fetch(`${baseUrl}/assets/${coinshort}`)
       .then((res) => res.json())
       .then((data) => {
-        setThirdAbstractCoin(data);
+        setThirdCoin(data);
+      });
+  }
+
+  function fetchFourthCoin(coinshort) {
+    fetch(`${baseUrl}/assets/${coinshort}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setFourthCoin(data);
+      });
+  }
+
+  function fetchFifthCoin(coinshort) {
+    fetch(`${baseUrl}/assets/${coinshort}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setFifthCoin(data);
+      });
+  }
+
+  function fetchSixthCoin(coinshort) {
+    fetch(`${baseUrl}/assets/${coinshort}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setSixthCoin(data);
       });
   }
 
   function refreshCoin(e) {
     const coin = e.target.alt;
-    console.log(coin);
     if (coin === "BTC") {
-      fetchAbstractPrimaryCoin();
+      fetchPrimaryCoin("bitcoin");
     } else if (coin === "ETH") {
-      fetchAbstractSecondaryCoin();
+      fetchSecondaryCoin("ethereum");
+    } else if (coin === "DOGE") {
+      fetchThirdCoin("dogecoin");
     } else if (coin === "MATIC") {
-      fetchAbstractThirdCoin();
+      fetchFourthCoin("polygon");
+    } else if (coin === "SOL") {
+      fetchFifthCoin("solana");
+    } else if (coin === "DAI") {
+      fetchSixthCoin("multi-collateral-dai");
     }
   }
 
@@ -107,7 +130,7 @@ function App() {
     fetch(mainCoinHistUrl)
       .then((res) => res.json())
       .then((data) => {
-        console.table(data.data.slice(-timespan, data.data.length));
+        //console.table(data.data.slice(-timespan, data.data.length));
         setHistDataMainCoin(data.data.slice(-timespan, data.data.length));
       });
 
@@ -141,18 +164,18 @@ function App() {
           coin={mainCoinSelected}
         />
         <div className="Third">
-          <Stats data={primaryAbstractCoin} handleRefresh={refreshCoin} />
-          <Stats data={secondaryAbstractCoin} handleRefresh={refreshCoin} />
-          <Stats data={thirdAbstractCoin} handleRefresh={refreshCoin} />
+          <Stats data={primaryCoin} handleRefresh={refreshCoin} />
+          <Stats data={secondaryCoin} handleRefresh={refreshCoin} />
+          <Stats data={thirdCoin} handleRefresh={refreshCoin} />
         </div>
         <div className="Half">
           <SubGraph number={1} />
           <SubGraph number={2} />
         </div>
         <div className="Third">
-          <Stats data={primaryAbstractCoin} />
-          <Stats data={primaryAbstractCoin} />
-          <Stats data={primaryAbstractCoin} />
+          <Stats data={fourthCoin} handleRefresh={refreshCoin} />
+          <Stats data={fifthCoin} handleRefresh={refreshCoin} />
+          <Stats data={sixthCoin} handleRefresh={refreshCoin} />
         </div>
       </div>
       <Footer />

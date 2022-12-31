@@ -33,6 +33,18 @@ function MainGraph({ chartData, handleClick, handleTimespan, timespan, coin }) {
             alt="polygon"
             onClick={(e) => handleClick(e)}
           />
+          <img
+            className="cur-icon"
+            src="/sol.png"
+            alt="solana"
+            onClick={(e) => handleClick(e)}
+          />
+          <img
+            className="cur-icon"
+            src="/dai.png"
+            alt="multi-collateral-dai"
+            onClick={(e) => handleClick(e)}
+          />
         </div>
         <div className="main-chart-dropdown">
           <label for="dog-names" id="timespan-label">

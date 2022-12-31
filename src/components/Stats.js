@@ -9,6 +9,7 @@ function Stats({ data, handleRefresh }) {
       DOGE: "/doge.svg",
       MATIC: "/matic.png",
       SOL: "/sol.png",
+      DAI: "/dai.png",
     };
     return iconChanger[id];
   }
@@ -17,14 +18,14 @@ function Stats({ data, handleRefresh }) {
     <div className="stats">
       <div className="coin-date">
         <img
-          src={getIcon(data.base)}
-          alt={data.base}
+          src={getIcon(data.data.symbol)}
+          alt={data.data.symbol}
           className="cur-icon-stats"
           onClick={(e) => handleRefresh(e)}
         />
-        {unixToHumanTime(data.last_updated)}
+        <p className="coin-date-time">{unixToHumanTime(data.timestamp)}</p>
       </div>
-      <p>EUR {shortenRate(data.exchange_rates.EUR)}</p>
+      <p>USD {shortenRate(data.data.priceUsd)}</p>
     </div>
   );
 }

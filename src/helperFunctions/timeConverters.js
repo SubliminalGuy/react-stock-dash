@@ -4,7 +4,7 @@
  * @returns A string with the date in the format DD.MM.YYYY
  */
 export const unixToHumanTime = (unix) => {
-  let humanTime = new Date(unix * 1000);
+  let humanTime = new Date(unix);
   humanTime =
     humanTime.getDate().toString() +
     "." +
