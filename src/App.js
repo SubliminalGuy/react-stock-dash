@@ -26,6 +26,8 @@ function App() {
   const [fifthCoin, setFifthCoin] = useState(fakeCoinData[4]);
   const [sixthCoin, setSixthCoin] = useState(fakeCoinData[5]);
 
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
   const [mainCoinSelected, setMainCoinSelected] = useState("bitcoin");
   const [mainGraphTimespan, setMainGraphTimespan] = useState(14);
 
@@ -54,6 +56,27 @@ function App() {
   function handleTimespan(e) {
     const newTimespan = Number(e.target.value);
     setMainGraphTimespan(newTimespan);
+  }
+
+  function toggleColorMode() {
+    setIsDarkMode(!isDarkMode);
+
+    if (isDarkMode === false) {
+      document.documentElement.style.setProperty(
+        "--background-color",
+        "rgb(241 245 249)"
+      );
+      document.documentElement.style.setProperty("--font-color", "#1F2937");
+      document.documentElement.style.setProperty("--border-color", "#60A5FA");
+    }
+    if (isDarkMode === true) {
+      document.documentElement.style.setProperty(
+        "--background-color",
+        "#282c34"
+      );
+      document.documentElement.style.setProperty("--font-color", "#e2e8f0");
+      document.documentElement.style.setProperty("--border-color", "#4f46e5");
+    }
   }
 
   function fetchPrimaryCoin(coinshort) {
@@ -154,9 +177,10 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar />
+      <Navbar toggleColorMode={toggleColorMode} isDarkMode={isDarkMode} />
       <div className="Main">
         <MainGraph
+          isDarkMode={isDarkMode}
           chartData={chartData}
           handleClick={handlePrimaryCoinSelection}
           handleTimespan={handleTimespan}

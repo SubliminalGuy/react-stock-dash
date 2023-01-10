@@ -1,4 +1,4 @@
-function Navbar() {
+function Navbar({ toggleColorMode, isDarkMode }) {
   return (
     <div className="Navbar">
       <div className="Logo">
@@ -9,10 +9,18 @@ function Navbar() {
         ></img>
         <p>Investicon</p>
       </div>
-      <li className="Menu">
-        <ul>Main</ul>
-        <ul>About</ul>
-      </li>
+      <div className="Menu">
+        <li>
+          <ul>Main</ul>
+          <ul>About</ul>
+        </li>
+      </div>
+      <img
+        className="mode-icon"
+        src={isDarkMode ? "moon.png" : "sun.png"}
+        alt="A symbolic sun"
+        onClick={toggleColorMode}
+      ></img>
     </div>
   );
 }

@@ -20,18 +20,24 @@
   font-style: normal;
 }
 
+:root {
+  --background-color: #282c34;
+  --font-color: #e2e8f0;
+  --border-color: #4f46e5;
+}
+
 /* Main Layout */
 
 .App {
   text-align: center;
-  background-color: #282c34;
+  background-color: var(--background-color);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   font-size: calc(10px + 2vmin);
   font-family: "biryanilight";
-  color: white;
+  color: var(--font-color);
 }
 
 .Main {
@@ -67,6 +73,7 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
+  color: ;
 }
 
 .Logo {
@@ -82,7 +89,20 @@
 
 .Menu {
   display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
   font-size: 1.3rem;
+}
+
+.mode-icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+li {
+  list-style: none;
+  display: flex;
 }
 
 ul {
@@ -98,7 +118,7 @@ ul {
 
 /* Main Graph Styling */
 .main-graph {
-  border: 5px #4f46e5 solid;
+  border: 5px var(--border-color) solid;
   width: 100%;
 
   align: 0 center;
@@ -153,7 +173,7 @@ ul {
 /* Sub Graph Styling */
 
 .sub-graph {
-  border: 5px #4f46e5 solid;
+  border: 5px var(--border-color) solid;
   width: 45%;
   align: 0 center;
   min-height: 30vh;
@@ -164,7 +184,7 @@ ul {
 
 /* Stats Styling */
 .stats {
-  border: 5px #4f46e5 solid;
+  border: 5px var(--border-color) solid;
   width: 30%;
   min-height: 30vh;
   display: flex;

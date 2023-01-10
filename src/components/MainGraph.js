@@ -4,7 +4,14 @@ import Chart from "chart.js/auto";
 
 import { Line } from "react-chartjs-2";
 
-function MainGraph({ chartData, handleClick, handleTimespan, timespan, coin }) {
+function MainGraph({
+  chartData,
+  handleClick,
+  handleTimespan,
+  timespan,
+  coin,
+  isDarkMode,
+}) {
   return (
     <div className="main-graph">
       <div className="main-graph-menu">
@@ -70,7 +77,8 @@ function MainGraph({ chartData, handleClick, handleTimespan, timespan, coin }) {
               title: {
                 display: true,
                 text: `${coin} ${timeSpanConverter(timespan)}`,
-                color: "#BAE6FD",
+                ...(isDarkMode && { color: "#1F2937" }),
+                ...(!isDarkMode && { color: "#e2e8f0" }),
                 font: {
                   family: "biryaniregular",
                   size: 16,
