@@ -17,7 +17,7 @@ function Navbar({ toggleColorMode, isDarkMode }) {
       </div>
       <img
         className="mode-icon"
-        src={isDarkMode ? "moon.png" : "sun.png"}
+        src={isDarkMode ? "sun.png" : "moon.png"}
         alt="A symbolic sun"
         onClick={toggleColorMode}
       ></img>

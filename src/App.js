@@ -26,7 +26,9 @@ function App() {
   const [fifthCoin, setFifthCoin] = useState(fakeCoinData[4]);
   const [sixthCoin, setSixthCoin] = useState(fakeCoinData[5]);
 
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(
+    localStorage.getItem("myScheme") === "true"
+  );
 
   const [mainCoinSelected, setMainCoinSelected] = useState("bitcoin");
   const [mainGraphTimespan, setMainGraphTimespan] = useState(14);
@@ -48,8 +50,12 @@ function App() {
     ],
   });
 
+  useEffect(() => {
+    setColorMode();
+  }, [isDarkMode]);
+
   function handlePrimaryCoinSelection(e) {
-    console.log(e.target.alt);
+    //console.log(e.target.alt);
     setMainCoinSelected(e.target.alt);
   }
 
@@ -59,8 +65,12 @@ function App() {
   }
 
   function toggleColorMode() {
-    setIsDarkMode(!isDarkMode);
+    const darkMode = !isDarkMode;
+    setIsDarkMode(darkMode);
+    localStorage.setItem("myScheme", darkMode);
+  }
 
+  function setColorMode() {
     if (isDarkMode === false) {
       document.documentElement.style.setProperty(
         "--background-color",
