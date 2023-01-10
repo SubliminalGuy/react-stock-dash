@@ -50,9 +50,8 @@ function App() {
     ],
   });
 
-  useEffect(() => {
-    setColorMode();
-  }, [isDarkMode]);
+  // Set the initial Dark Mode preference that comes from local Storage
+  setColorMode();
 
   function handlePrimaryCoinSelection(e) {
     //console.log(e.target.alt);
