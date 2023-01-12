@@ -68,30 +68,30 @@ function MainGraph({
           </select>
         </div>
       </div>
-      <div className="main-chart">
-        <Line
-          className="main-chart"
-          data={chartData}
-          options={{
-            plugins: {
-              title: {
-                display: true,
-                text: `${coin} ${timeSpanConverter(timespan)}`,
-                ...(isDarkMode && { color: "#1F2937" }),
-                ...(!isDarkMode && { color: "#e2e8f0" }),
-                font: {
-                  family: "biryaniregular",
-                  size: 16,
-                },
+
+      <Line
+        className="main-chart"
+        data={chartData}
+        options={{
+          plugins: {
+            title: {
+              display: true,
+              text: `${coin} ${timeSpanConverter(timespan)}`,
+              ...(isDarkMode && { color: "#e2e8f0" }),
+              ...(!isDarkMode && { color: "#1F2937" }),
+              font: {
+                family: "biryaniregular",
+                size: 16,
               },
-              legend: {
-                display: false,
-              },
-              responsive: true,
             },
-          }}
-        />
-      </div>
+            legend: {
+              display: false,
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+        }}
+      />
     </div>
   );
 }

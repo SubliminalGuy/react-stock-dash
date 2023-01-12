@@ -25,7 +25,9 @@ function Stats({ data, handleRefresh }) {
         />
         <p className="coin-date-time">{unixToHumanTime(data.timestamp)}</p>
       </div>
-      <p>USD {shortenRate(data.data.priceUsd)}</p>
+      <div className="coin-value">
+        <p>USD {shortenRate(data.data.priceUsd)}</p>
+      </div>
     </div>
   );
 }
