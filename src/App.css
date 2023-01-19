@@ -67,13 +67,18 @@
 
 /* Navbar Styling */
 
-.Navbar {
+.navbar-container {
   height: 5rem;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  color: ;
+}
+
+.Footer {
+  display: flex;
+  width: 100%;
+  justify-content: center;
 }
 
 .Logo {
@@ -83,8 +88,8 @@
 }
 
 .icon {
-  width: 4rem;
-  height: 4rem;
+  width: 60px;
+  height: 60px;
 }
 
 .Menu {
@@ -120,9 +125,7 @@ ul {
 .main-graph {
   border: 5px var(--border-color) solid;
   width: 100%;
-
   align: 0 center;
-  min-height: 30vh;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -163,6 +166,8 @@ ul {
 #timespan {
   width: 60%;
   font-size: 0.7rem;
+  background-color: #e4e4e7;
+  border-radius: 8px;
 }
 
 #timespan-label {
@@ -185,10 +190,24 @@ ul {
 .stats {
   border: 5px var(--border-color) solid;
   width: 30%;
-  min-height: 30vh;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.refresh-button {
+  display: flex;
+  width: 95%;
+  justify-content: flex-end;
+}
+
+.refresh-coin {
+  padding: 0px 3px 0px 3px;
+  margin-top: 0.6rem;
+  font-size: 0.7rem;
+  border-radius: 8px;
+  background-color: #e4e4e7;
+  height: 1.4rem;
 }
 
 .coin-date {
@@ -201,7 +220,13 @@ ul {
 
 .coin-date-time {
   padding: 0;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+}
+
+.coin-value {
+  height: 80px;
+  font-size: 1.1rem;
+  font-weight: bold;
 }
 
 /* Image Styling */
@@ -210,58 +235,45 @@ ul {
 }
 
 .cur-icon-stats {
-  width: 40px;
+  width: 36px;
 }
 
 @media (max-width: 800px) {
-  .cur-icon {
-    width: 26px;
+  // Navbar Specs
+
+  .icon {
+    width: 32px;
+    height: 32px;
   }
 
-  .main-chart-dropdown {
-    padding-right: 5px;
-
+  .investicon {
     font-size: 0.9rem;
-    width: 40%;
   }
 
-  .crypto-icons {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 220px;
-  }
-
-  .main-graph-menu {
-    width: 100%;
-    display: flex;
+  .Menu {
     justify-content: space-around;
+    font-size: 1.2rem;
   }
-
-  #timespan {
-    width: 70%;
-    font-size: 0.8rem;
-  }
-
-  .Third {
-    width: 100%;
-    justify-content: space-around;
-  }
-}
-
-@media (max-width: 600px) {
   .cur-icon {
     width: 24px;
   }
 
   .crypto-icons {
-    width: 60%;
+    width: 80%;
     margin-bottom: 0.6rem;
+  }
+
+  .Third {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .main-graph {
     border: 3px var(--border-color) solid;
-    width: 90%;
+    width: 100%;
     height: 40vh;
     align: 0 center;
 
@@ -272,9 +284,37 @@ ul {
     padding: 10px;
   }
 
+  .stats {
+    border: 3px var(--border-color) solid;
+    width: 70%;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .refresh-coin {
+    margin-top: 0.5rem;
+    font-size: 0.5rem;
+    height: 1.2rem;
+  }
+
+  .coin-date {
+    justify-content: space-around;
+    align-items: center;
+    width: 70%;
+  }
+
+  .cur-icon-stats {
+    width: 32px;
+  }
+
   .main-graph-menu {
     flex-direction: column;
     align-items: center;
+  }
+
+  .main-chart {
+    height: 50vh;
   }
 
   .main-chart-dropdown {
@@ -287,8 +327,8 @@ ul {
     font-size: 1rem;
   }
   .mode-icon {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.3rem;
+    height: 1.3rem;
   }
 
   #timespan {
@@ -296,30 +336,11 @@ ul {
     font-size: 0.7rem;
   }
 
-  .stats {
-    border: 3px var(--border-color) solid;
-    min-height: 0px;
-    width: 30%;
+  .Footer {
+    width: 80%;
   }
 
-  .coin-date-time {
-    padding: 0;
-    font-size: 0.9rem;
-  }
-
-  .coin-date {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-  }
-  .cur-icon-stats {
-    padding-top: 5px;
-    width: 20px;
-  }
-
-  .coin-value {
-    margin: 0;
-    font-size: 0.9rem;
+  .Links {
+    font-size: 0.7rem;
   }
 }

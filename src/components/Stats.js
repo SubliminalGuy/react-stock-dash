@@ -16,17 +16,25 @@ function Stats({ data, handleRefresh }) {
 
   return (
     <div className="stats">
+      <div className="refresh-button">
+        <button
+          className="refresh-coin"
+          onClick={() => handleRefresh(data.data.symbol)}
+        >
+          Refresh
+        </button>
+      </div>
+
       <div className="coin-date">
         <img
           src={getIcon(data.data.symbol)}
           alt={data.data.symbol}
           className="cur-icon-stats"
-          onClick={(e) => handleRefresh(e)}
         />
         <p className="coin-date-time">{unixToHumanTime(data.timestamp)}</p>
       </div>
       <div className="coin-value">
-        <p>USD {shortenRate(data.data.priceUsd)}</p>
+        <p>$ {shortenRate(data.data.priceUsd)}</p>
       </div>
     </div>
   );

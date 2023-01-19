@@ -31,7 +31,7 @@ function App() {
   );
 
   const [mainCoinSelected, setMainCoinSelected] = useState("bitcoin");
-  const [mainGraphTimespan, setMainGraphTimespan] = useState(14);
+  const [mainGraphTimespan, setMainGraphTimespan] = useState(7);
 
   const [histDataMainCoin, setHistDataMainCoin] = useState(fakeHistData);
 
@@ -136,8 +136,9 @@ function App() {
       });
   }
 
-  function refreshCoin(e) {
-    const coin = e.target.alt;
+  function refreshCoin(symbol) {
+    const coin = symbol;
+    console.log(coin);
     if (coin === "BTC") {
       fetchPrimaryCoin("bitcoin");
     } else if (coin === "ETH") {

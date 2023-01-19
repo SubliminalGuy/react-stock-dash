@@ -81,7 +81,7 @@ function MainGraph({
               ...(!isDarkMode && { color: "#1F2937" }),
               font: {
                 family: "biryaniregular",
-                size: 16,
+                size: 14,
               },
             },
             legend: {

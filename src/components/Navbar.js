@@ -1,16 +1,16 @@
 function Navbar({ toggleColorMode, isDarkMode }) {
   return (
-    <div className="Navbar">
+    <div className="navbar-container">
       <div className="Logo">
         <img
           className="icon"
           src="chart-increasing.png"
           alt="Increasing Chart"
         ></img>
-        <p>Investicon</p>
+        <p className="investicon">Investicon</p>
       </div>
       <div className="Menu">
-        <li>
+        <li className="page-selector">
           <ul>Main</ul>
           <ul>About</ul>
         </li>
