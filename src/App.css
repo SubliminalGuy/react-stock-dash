@@ -28,6 +28,15 @@
   --border-color: #4f46e5;
 }
 
+li {
+  list-style: none;
+  display: flex;
+}
+
+ul {
+  list-style: none;
+}
+
 /* MAIN LAYOUT */
 
 .App {
@@ -229,15 +238,6 @@
   justify-content: center;
 }
 
-li {
-  list-style: none;
-  display: flex;
-}
-
-ul {
-  list-style: none;
-}
-
 /* Footer Styling */
 
 .footer-container {
@@ -262,16 +262,17 @@ ul {
   }
 }
 
-@media (max-width: 800px) {
-  // Stats Container Specs
-
+@media (max-width: 910px) {
   .stats-container {
     border: 3px var(--border-color) solid;
-    width: 200px;
+    width: 240px;
     flex-direction: column;
-    align-items: center;
     margin-bottom: 1rem;
   }
+}
+
+@media (max-width: 900px) {
+  // Stats Container Specs
 
   .stats-refresh-coin {
     margin-top: 0.5rem;
