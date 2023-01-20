@@ -1,3 +1,5 @@
+/* FONTS */
+
 @font-face {
   font-family: "biryanilight";
   src: url("Biryani-Light-webfont.woff") format("woff");
@@ -26,7 +28,7 @@
   --border-color: #4f46e5;
 }
 
-/* Main Layout */
+/* MAIN LAYOUT */
 
 .App {
   text-align: center;
@@ -50,8 +52,7 @@
 }
 
 .Third {
-  width: 100%;
-  max-width: 800px;
+  width: 80%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -65,7 +66,7 @@
   justify-content: space-between;
 }
 
-/* Navbar Styling */
+/* NAVBAR STYLING */
 
 .navbar-container {
   height: 5rem;
@@ -75,24 +76,22 @@
   justify-content: space-around;
 }
 
-.Footer {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-}
-
-.Logo {
+.navbar-logo-container {
   font-family: "biryanibold";
   display: flex;
   align-items: center;
 }
 
-.icon {
+.navbar-icon {
   width: 60px;
   height: 60px;
 }
 
-.Menu {
+.navbar-site-name {
+  font-size: 1.4rem;
+}
+
+.navbar-sitemap-container {
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-between;
@@ -100,9 +99,134 @@
   font-size: 1.3rem;
 }
 
-.mode-icon {
+.navbar-mode-icon {
   width: 2rem;
   height: 2rem;
+}
+
+/* MAIN GRAPH STYLING */
+.main-container {
+  border: 4px var(--border-color) solid;
+  width: 800 px;
+  height: 400px;
+  align: 0 center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 10px;
+}
+
+.main-container-menu {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.main-container-menu-crypto-bar {
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 250px;
+}
+
+.main-container-menu-cur-icon {
+  width: 30px;
+}
+
+.main-container-menu-dropdown {
+  margin-top: 0px;
+  padding-right: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  width: 25%;
+}
+
+.main-container-chart-container {
+  position: relative;
+  margin: 10px auto;
+  width: 650px;
+  height: 45vh;
+}
+
+#main-container-menu-timespan-label {
+  padding-right: 1rem;
+}
+
+#main-container-menu-timespan-dropdown {
+  width: 60%;
+  font-size: 0.7rem;
+  background-color: #e4e4e7;
+  border-radius: 8px;
+}
+
+/* STATS STYLING */
+.stats-container {
+  border: 4px var(--border-color) solid;
+  width: 30%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.stats-refresh-button {
+  display: flex;
+  width: 95%;
+  justify-content: flex-end;
+}
+
+.stats-refresh-coin {
+  padding: 0px 3px 0px 3px;
+  margin-top: 0.6rem;
+  font-size: 0.7rem;
+  border-radius: 8px;
+  background-color: #e4e4e7;
+  height: 1.4rem;
+}
+
+.stats-icon-date-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  width: 80%;
+}
+
+.stats-cur-icon {
+  width: 36px;
+}
+
+.stats-coin-date-time {
+  padding: 0;
+  font-size: 1.1rem;
+}
+
+.stats-coin-value {
+  height: 80px;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+/* SUB GRAPH STYLING */
+
+.sub-graph {
+  border: 4px var(--border-color) solid;
+  width: 45%;
+  align: 0 center;
+  min-height: 30vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Footer {
+  display: flex;
+  width: 100%;
+  justify-content: center;
 }
 
 li {
@@ -116,231 +240,128 @@ ul {
 
 /* Footer Styling */
 
-.Links {
+.footer-container {
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.footer-links {
   display: flex;
   font-size: 1rem;
 }
 
-/* Main Graph Styling */
-.main-graph {
-  border: 5px var(--border-color) solid;
-  width: 100%;
-  align: 0 center;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: baseline;
-  padding: 10px;
-}
+/* MEDIA QUERY */
 
-.main-graph-menu {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding: 5px;
-}
-
-.crypto-icons {
-  padding: 5px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 250px;
-}
-
-.main-chart {
-  width: 600px;
-}
-
-.main-chart-dropdown {
-  margin-top: 0px;
-  padding-right: 5px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.9rem;
-  width: 25%;
-}
-
-#timespan {
-  width: 60%;
-  font-size: 0.7rem;
-  background-color: #e4e4e7;
-  border-radius: 8px;
-}
-
-#timespan-label {
-  padding-right: 1rem;
-}
-
-/* Sub Graph Styling */
-
-.sub-graph {
-  border: 5px var(--border-color) solid;
-  width: 45%;
-  align: 0 center;
-  min-height: 30vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Stats Styling */
-.stats {
-  border: 5px var(--border-color) solid;
-  width: 30%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.refresh-button {
-  display: flex;
-  width: 95%;
-  justify-content: flex-end;
-}
-
-.refresh-coin {
-  padding: 0px 3px 0px 3px;
-  margin-top: 0.6rem;
-  font-size: 0.7rem;
-  border-radius: 8px;
-  background-color: #e4e4e7;
-  height: 1.4rem;
-}
-
-.coin-date {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
-  width: 80%;
-}
-
-.coin-date-time {
-  padding: 0;
-  font-size: 1.1rem;
-}
-
-.coin-value {
-  height: 80px;
-  font-size: 1.1rem;
-  font-weight: bold;
-}
-
-/* Image Styling */
-.cur-icon {
-  width: 30px;
-}
-
-.cur-icon-stats {
-  width: 36px;
+@media (max-width: 1000px) {
+  .main-container-chart-container {
+    height: 35vh;
+    margin: 1rem auto;
+  }
 }
 
 @media (max-width: 800px) {
-  // Navbar Specs
+  // Stats Container Specs
 
-  .icon {
-    width: 32px;
-    height: 32px;
-  }
-
-  .investicon {
-    font-size: 0.9rem;
-  }
-
-  .Menu {
-    justify-content: space-around;
-    font-size: 1.2rem;
-  }
-  .cur-icon {
-    width: 24px;
-  }
-
-  .crypto-icons {
-    width: 80%;
-    margin-bottom: 0.6rem;
-  }
-
-  .Third {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .main-graph {
+  .stats-container {
     border: 3px var(--border-color) solid;
-    width: 100%;
-    height: 40vh;
-    align: 0 center;
-
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: baseline;
-    padding: 10px;
-  }
-
-  .stats {
-    border: 3px var(--border-color) solid;
-    width: 70%;
+    width: 200px;
     flex-direction: column;
     align-items: center;
     margin-bottom: 1rem;
   }
 
-  .refresh-coin {
+  .stats-refresh-coin {
     margin-top: 0.5rem;
     font-size: 0.5rem;
     height: 1.2rem;
   }
 
-  .coin-date {
-    justify-content: space-around;
-    align-items: center;
-    width: 70%;
-  }
-
-  .cur-icon-stats {
+  .stats-cur-icon {
     width: 32px;
   }
 
-  .main-graph-menu {
+  .Third {
+    width: 100%;
     flex-direction: column;
     align-items: center;
   }
 
-  .main-chart {
-    height: 50vh;
+  // Footer Specs
+
+  .footer-container {
+    width: 70%;
   }
 
-  .main-chart-dropdown {
+  .footer-links {
+    font-size: 0.7rem;
+  }
+
+  // Navbar Specs
+
+  .navbar-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .navbar-site-name {
+    font-size: 0.9rem;
+  }
+
+  .navbar-sitemap-container {
+    justify-content: space-around;
+    font-size: 1rem;
+  }
+
+  .navbar-mode-icon {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+
+  // Main Container Specs
+
+  .main-container {
+    border: 3px var(--border-color) solid;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 10px;
+    margin: 0;
+  }
+
+  .main-container-menu {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .main-container-menu-dropdown {
     width: 60%;
     font-size: 0.8rem;
     justify-content: space-around;
   }
 
-  .Menu {
-    font-size: 1rem;
-  }
-  .mode-icon {
-    width: 1.3rem;
-    height: 1.3rem;
+  .main-container-chart-container {
+    width: 300px;
+    height: 35vh;
+    margin: 1rem auto;
   }
 
-  #timespan {
-    width: 40%;
-    font-size: 0.7rem;
-  }
-
-  .Footer {
+  .main-container-menu-crypto-bar {
     width: 80%;
+    margin-bottom: 0.9rem;
   }
 
-  .Links {
+  .main-container-menu-cur-icon {
+    width: 24px;
+  }
+
+  #main-container-menu-timespan-dropdown {
+    width: 40%;
     font-size: 0.7rem;
   }
 }
