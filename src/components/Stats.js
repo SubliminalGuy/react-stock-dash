@@ -1,4 +1,4 @@
-import shortenRate from "../helperFunctions/shortenRate";
+import { shortenRate } from "../helperFunctions/shortenRate";
 import { unixToHumanTime } from "../helperFunctions/timeConverters";
 
 function Stats({ data, handleRefresh }) {

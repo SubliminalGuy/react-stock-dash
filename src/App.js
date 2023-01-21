@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 
 // Helper Functions
-import shortenRate from "./helperFunctions/shortenRate";
-
+import { shortenRate, shortenBig } from "./helperFunctions/shortenRate";
 import { humanTime } from "./helperFunctions/timeConverters";
+import filterAllAssets from "./helperFunctions/filterAllAssets";
 
 import "./App.css";
 import Navbar from "./components/Navbar";
@@ -15,6 +15,7 @@ import SubGraph from "./components/SubGraph";
 //import { chartRawData } from "./utils/Data";
 import { fakeHistData } from "./utils/fakeHistData";
 import { fakeCoinData } from "./utils/fakeCoinData";
+import { fakeAssetData } from "./utils/fakeAssetData";
 
 function App() {
   const baseUrl = process.env.REACT_APP_COINCAP_BASE_URL;
@@ -35,20 +36,36 @@ function App() {
 
   const [histDataMainCoin, setHistDataMainCoin] = useState(fakeHistData);
 
-  // Prepares Raw Data for Chart.js
+  const [marketCapData, setMarketCapData] = useState(
+    filterAllAssets(fakeAssetData)
+  );
+
+  // Prepares Raw Data for Chart.js Main Graph
 
   const [chartData, setChartData] = useState({
     labels: histDataMainCoin.map((data) => humanTime(data.date)),
     datasets: [
       {
-        label: "USD Price",
+        label: "$ Price",
         data: histDataMainCoin.map((data) => shortenRate(data.priceUsd)),
         borderColor: "rgb(53, 162, 235)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
-        borderWidth: 3,
+        borderWidth: 2,
       },
     ],
   });
+
+  // Prepares Data for Chart.js Market Cap Histogram
+
+  const marketCapChartData = {
+    labels: marketCapData.map((item) => item.symbol),
+    datasets: [
+      {
+        label: "Market Cap USD",
+        data: marketCapData.map((item) => shortenBig(item.marketCapUsd)),
+      },
+    ],
+  };
 
   // Set the initial Dark Mode preference that comes from local Storage
   setColorMode();
@@ -87,6 +104,8 @@ function App() {
       document.documentElement.style.setProperty("--border-color", "#4f46e5");
     }
   }
+
+  // Fetches the individual coin by user selection
 
   function fetchPrimaryCoin(coinshort) {
     fetch(`${baseUrl}/assets/${coinshort}`)
@@ -163,7 +182,6 @@ function App() {
     fetch(mainCoinHistUrl)
       .then((res) => res.json())
       .then((data) => {
-        //console.table(data.data.slice(-timespan, data.data.length));
         setHistDataMainCoin(data.data.slice(-timespan, data.data.length));
       });
 
@@ -175,11 +193,11 @@ function App() {
       labels: histDataMainCoin.map((data) => humanTime(data.date)),
       datasets: [
         {
-          label: "USD Price",
+          label: "$ Price",
           data: histDataMainCoin.map((data) => shortenRate(data.priceUsd)),
           borderColor: "rgb(53, 162, 235)",
           backgroundColor: "rgba(255, 99, 132, 0.5)",
-          borderWidth: 3,
+          borderWidth: 2,
         },
       ],
     });
@@ -203,8 +221,8 @@ function App() {
           <Stats data={thirdCoin} handleRefresh={refreshCoin} />
         </div>
         <div className="Half">
-          <SubGraph number={1} />
-          <SubGraph number={2} />
+          <SubGraph number={1} data={marketCapChartData} />
+          <SubGraph number={2} data={marketCapChartData} />
         </div>
         <div className="Third">
           <Stats data={fourthCoin} handleRefresh={refreshCoin} />

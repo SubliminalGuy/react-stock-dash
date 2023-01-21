@@ -117,7 +117,7 @@ ul {
 .main-container {
   border: 4px var(--border-color) solid;
   width: 800 px;
-  height: 400px;
+  height: 55vh;
   align: 0 center;
   display: flex;
   flex-wrap: wrap;
@@ -222,12 +222,13 @@ ul {
 
 /* SUB GRAPH STYLING */
 
-.sub-graph {
+.sub-graph-one-container {
   border: 4px var(--border-color) solid;
   width: 45%;
   align: 0 center;
   min-height: 30vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
