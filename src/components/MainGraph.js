@@ -12,6 +12,8 @@ function MainGraph({
   coin,
   isDarkMode,
 }) {
+  console.table("ChartData", chartData);
+
   return (
     <div className="main-container">
       <div className="main-container-menu">
@@ -72,30 +74,35 @@ function MainGraph({
           </select>
         </div>
       </div>
+
       <div className="main-container-chart-container">
-        <Line
-          className="main-container-chart"
-          data={chartData}
-          options={{
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              title: {
-                display: true,
-                text: `${coin} ${timeSpanConverter(timespan)}`,
-                ...(isDarkMode && { color: "#e2e8f0" }),
-                ...(!isDarkMode && { color: "#1F2937" }),
-                font: {
-                  family: "biryaniregular",
-                  size: 14,
+        {chartData && (
+          <Line
+            className="main-container-chart"
+            data={chartData}
+            options={{
+              responsive: true,
+              maintainAspectRatio: false,
+
+              plugins: {
+                title: {
+                  display: true,
+                  text: `${coin} ${timeSpanConverter(timespan)}`,
+                  ...(isDarkMode && { color: "#e2e8f0" }),
+                  ...(!isDarkMode && { color: "#1F2937" }),
+                  font: {
+                    family: "biryaniregular",
+                    size: 14,
+                  },
+                },
+                legend: {
+                  display: false,
                 },
               },
-              legend: {
-                display: false,
-              },
-            },
-          }}
-        />
+            }}
+          />
+        )}
+        {!chartData && <span class="loader"></span>}
       </div>
     </div>
   );

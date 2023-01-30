@@ -1,8 +1,7 @@
 import Chart from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 
-function SubGraph({ number, data }) {
-  console.log("SubgrapData", data);
+function BarChart({ number, data }) {
   return (
     <>
       <div className="sub-graph-one-container">
@@ -12,6 +11,12 @@ function SubGraph({ number, data }) {
           options={{
             responsive: true,
             maintainAspectRatio: false,
+            scales: {
+              y: {
+                display: true,
+                type: "logarithmic",
+              },
+            },
             plugins: {
               title: {
                 display: true,
@@ -32,4 +37,4 @@ function SubGraph({ number, data }) {
   );
 }
 
-export default SubGraph;
+export default BarChart;

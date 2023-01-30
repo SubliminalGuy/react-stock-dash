@@ -10,10 +10,11 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import MainGraph from "./components/MainGraph";
 import Stats from "./components/Stats";
-import SubGraph from "./components/SubGraph";
+import BarChart from "./components/BarChart";
+import NextChart from "./components/NextChart";
 
 //import { chartRawData } from "./utils/Data";
-import { fakeHistData } from "./utils/fakeHistData";
+//import { fakeHistData } from "./utils/fakeHistData";
 import { fakeCoinData } from "./utils/fakeCoinData";
 import { fakeAssetData } from "./utils/fakeAssetData";
 
@@ -34,7 +35,7 @@ function App() {
   const [mainCoinSelected, setMainCoinSelected] = useState("bitcoin");
   const [mainGraphTimespan, setMainGraphTimespan] = useState(7);
 
-  const [histDataMainCoin, setHistDataMainCoin] = useState(fakeHistData);
+  const [histDataMainCoin, setHistDataMainCoin] = useState([]);
 
   const [marketCapData, setMarketCapData] = useState(
     filterAllAssets(fakeAssetData)
@@ -42,18 +43,7 @@ function App() {
 
   // Prepares Raw Data for Chart.js Main Graph
 
-  const [chartData, setChartData] = useState({
-    labels: histDataMainCoin.map((data) => humanTime(data.date)),
-    datasets: [
-      {
-        label: "$ Price",
-        data: histDataMainCoin.map((data) => shortenRate(data.priceUsd)),
-        borderColor: "rgb(53, 162, 235)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-        borderWidth: 2,
-      },
-    ],
-  });
+  const [chartData, setChartData] = useState(null);
 
   // Prepares Data for Chart.js Market Cap Histogram
 
@@ -106,7 +96,6 @@ function App() {
   }
 
   // Fetches the individual coin by user selection
-
   function fetchPrimaryCoin(coinshort) {
     fetch(`${baseUrl}/assets/${coinshort}`)
       .then((res) => res.json())
@@ -189,18 +178,20 @@ function App() {
   }, [mainCoinSelected, mainGraphTimespan]);
 
   useEffect(() => {
-    setChartData({
-      labels: histDataMainCoin.map((data) => humanTime(data.date)),
-      datasets: [
-        {
-          label: "$ Price",
-          data: histDataMainCoin.map((data) => shortenRate(data.priceUsd)),
-          borderColor: "rgb(53, 162, 235)",
-          backgroundColor: "rgba(255, 99, 132, 0.5)",
-          borderWidth: 2,
-        },
-      ],
-    });
+    if (histDataMainCoin.length > 0) {
+      setChartData({
+        labels: histDataMainCoin.map((data) => humanTime(data.date)),
+        datasets: [
+          {
+            label: "$ Price",
+            data: histDataMainCoin.map((data) => shortenRate(data.priceUsd)),
+            borderColor: "rgb(53, 162, 235)",
+            backgroundColor: "rgba(255, 99, 132, 0.5)",
+            borderWidth: 2,
+          },
+        ],
+      });
+    }
   }, [histDataMainCoin]);
 
   return (
@@ -221,8 +212,8 @@ function App() {
           <Stats data={thirdCoin} handleRefresh={refreshCoin} />
         </div>
         <div className="Half">
-          <SubGraph number={1} data={marketCapChartData} />
-          <SubGraph number={2} data={marketCapChartData} />
+          <BarChart number={1} data={marketCapChartData} />
+          <NextChart />
         </div>
         <div className="Third">
           <Stats data={fourthCoin} handleRefresh={refreshCoin} />
@@ -230,6 +221,7 @@ function App() {
           <Stats data={sixthCoin} handleRefresh={refreshCoin} />
         </div>
       </div>
+
       <Footer />
     </div>
   );
