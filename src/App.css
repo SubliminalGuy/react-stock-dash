@@ -238,6 +238,19 @@ ul {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 10px;
+}
+
+.sub-graph-two-container {
+  border: 4px var(--border-color) solid;
+  width: 45%;
+  align: 0 center;
+  min-height: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
 }
 
 /* FOOTER STYLING */

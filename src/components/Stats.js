@@ -1,7 +1,7 @@
 import { shortenRate } from "../helperFunctions/shortenRate";
 import { unixToHumanTime } from "../helperFunctions/timeConverters";
 
-function Stats({ data, handleRefresh }) {
+function Stats({ data, timestamp, handleRefresh }) {
   function getIcon(id) {
     const iconChanger = {
       BTC: "/btc.svg",
@@ -19,24 +19,22 @@ function Stats({ data, handleRefresh }) {
       <div className="stats-refresh-button">
         <button
           className="stats-refresh-coin"
-          onClick={() => handleRefresh(data.data.symbol)}
+          onClick={() => handleRefresh(data.name)}
         >
-          Refresh
+          Main Coin
         </button>
       </div>
 
       <div className="stats-icon-date-container">
         <img
-          src={getIcon(data.data.symbol)}
-          alt={data.data.symbol}
+          src={getIcon(data.symbol)}
+          alt={data.symbol}
           className="stats-cur-icon"
         />
-        <p className="stats-coin-date-time">
-          {unixToHumanTime(data.timestamp)}
-        </p>
+        <p className="stats-coin-date-time">{unixToHumanTime(timestamp)}</p>
       </div>
       <div className="stats-coin-value">
-        <p>$ {shortenRate(data.data.priceUsd)}</p>
+        <p>$ {shortenRate(data.priceUsd)}</p>
       </div>
     </div>
   );

@@ -12,8 +12,6 @@ function MainGraph({
   coin,
   isDarkMode,
 }) {
-  console.table("ChartData", chartData);
-
   return (
     <div className="main-container">
       <div className="main-container-menu">

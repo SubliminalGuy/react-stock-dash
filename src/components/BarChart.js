@@ -1,12 +1,12 @@
-import Chart from "chart.js/auto";
+//import Chart from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 
-function BarChart({ number, data }) {
+function BarChart({ data }) {
   return (
     <>
       <div className="sub-graph-one-container">
         <Bar
-          className="sub-graph-bar-chart"
+          className="sub-graph-one-bar-chart"
           data={data}
           options={{
             responsive: true,

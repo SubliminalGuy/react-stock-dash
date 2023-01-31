@@ -15,18 +15,22 @@ import NextChart from "./components/NextChart";
 
 //import { chartRawData } from "./utils/Data";
 //import { fakeHistData } from "./utils/fakeHistData";
-import { fakeCoinData } from "./utils/fakeCoinData";
+//import { fakeCoinData } from "./utils/fakeCoinData";
 import { fakeAssetData } from "./utils/fakeAssetData";
 
 function App() {
   const baseUrl = process.env.REACT_APP_COINCAP_BASE_URL;
 
-  const [primaryCoin, setPrimaryCoin] = useState(fakeCoinData[0]);
-  const [secondaryCoin, setSecondaryCoin] = useState(fakeCoinData[1]);
-  const [thirdCoin, setThirdCoin] = useState(fakeCoinData[2]);
-  const [fourthCoin, setFourthCoin] = useState(fakeCoinData[3]);
-  const [fifthCoin, setFifthCoin] = useState(fakeCoinData[4]);
-  const [sixthCoin, setSixthCoin] = useState(fakeCoinData[5]);
+  const [allCoinData, setAllCoinData] = useState(fakeAssetData);
+  const [primaryCoin, setPrimaryCoin] = useState(allCoinData.data[0]);
+  const [secondaryCoin, setSecondaryCoin] = useState(allCoinData.data[1]);
+  const [thirdCoin, setThirdCoin] = useState(allCoinData.data[8]);
+  const [fourthCoin, setFourthCoin] = useState(fakeAssetData.data[9]);
+  const [fifthCoin, setFifthCoin] = useState(fakeAssetData.data[10]);
+  const [sixthCoin, setSixthCoin] = useState(fakeAssetData.data[16]);
+  const [coinDataTimestamp, setCoinDataTimestamp] = useState(
+    allCoinData.timestamp
+  );
 
   const [isDarkMode, setIsDarkMode] = useState(
     localStorage.getItem("myScheme") === "true"
@@ -38,7 +42,7 @@ function App() {
   const [histDataMainCoin, setHistDataMainCoin] = useState([]);
 
   const [marketCapData, setMarketCapData] = useState(
-    filterAllAssets(fakeAssetData)
+    filterAllAssets(fakeAssetData.data)
   );
 
   // Prepares Raw Data for Chart.js Main Graph
@@ -57,12 +61,26 @@ function App() {
     ],
   };
 
+  const marketSupplyData = {
+    labels: marketCapData.map((item) => item.symbol),
+    datasets: [
+      {
+        label: "Coin Market Supply",
+        data: marketCapData.map((item) => shortenRate(item.supply)),
+      },
+    ],
+  };
+
   // Set the initial Dark Mode preference that comes from local Storage
   setColorMode();
 
   function handlePrimaryCoinSelection(e) {
-    //console.log(e.target.alt);
     setMainCoinSelected(e.target.alt);
+  }
+
+  function setAsMainCoin(name) {
+    name = name.toLowerCase().split(" ").join("-");
+    setMainCoinSelected(name);
   }
 
   function handleTimespan(e) {
@@ -95,76 +113,30 @@ function App() {
     }
   }
 
-  // Fetches the individual coin by user selection
-  function fetchPrimaryCoin(coinshort) {
-    fetch(`${baseUrl}/assets/${coinshort}`)
+  function fetchAllCoins() {
+    fetch(`${baseUrl}/assets`)
       .then((res) => res.json())
       .then((data) => {
-        setPrimaryCoin(data);
+        setMarketCapData(filterAllAssets(data.data));
+        setAllCoinData(data);
+        setCoinDataTimestamp(data.timestamp);
+        setPrimaryCoin(data.data[0]);
+        setSecondaryCoin(data.data[1]);
+        setThirdCoin(data.data[8]);
+        setFourthCoin(data.data[9]);
+        setFifthCoin(data.data[10]);
+        setSixthCoin(data.data[16]);
       });
   }
 
-  function fetchSecondaryCoin(coinshort) {
-    fetch(`${baseUrl}/assets/${coinshort}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setSecondaryCoin(data);
-      });
-  }
-
-  function fetchThirdCoin(coinshort) {
-    fetch(`${baseUrl}/assets/${coinshort}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setThirdCoin(data);
-      });
-  }
-
-  function fetchFourthCoin(coinshort) {
-    fetch(`${baseUrl}/assets/${coinshort}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setFourthCoin(data);
-      });
-  }
-
-  function fetchFifthCoin(coinshort) {
-    fetch(`${baseUrl}/assets/${coinshort}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setFifthCoin(data);
-      });
-  }
-
-  function fetchSixthCoin(coinshort) {
-    fetch(`${baseUrl}/assets/${coinshort}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setSixthCoin(data);
-      });
-  }
-
-  function refreshCoin(symbol) {
-    const coin = symbol;
-    console.log(coin);
-    if (coin === "BTC") {
-      fetchPrimaryCoin("bitcoin");
-    } else if (coin === "ETH") {
-      fetchSecondaryCoin("ethereum");
-    } else if (coin === "DOGE") {
-      fetchThirdCoin("dogecoin");
-    } else if (coin === "MATIC") {
-      fetchFourthCoin("polygon");
-    } else if (coin === "SOL") {
-      fetchFifthCoin("solana");
-    } else if (coin === "DAI") {
-      fetchSixthCoin("multi-collateral-dai");
-    }
+  function refreshCoin() {
+    fetchAllCoins();
   }
 
   useEffect(() => {
     const mainCoin = mainCoinSelected;
     //const { date, newDate } = urlTime(mainGraphTimespan);
+    refreshCoin();
     const timespan = mainGraphTimespan;
     const mainCoinHistUrl = `https://api.coincap.io/v2/assets/${mainCoin}/history?interval=d1`;
     let mainCoinHistData = [];
@@ -207,18 +179,42 @@ function App() {
           coin={mainCoinSelected}
         />
         <div className="Third">
-          <Stats data={primaryCoin} handleRefresh={refreshCoin} />
-          <Stats data={secondaryCoin} handleRefresh={refreshCoin} />
-          <Stats data={thirdCoin} handleRefresh={refreshCoin} />
+          <Stats
+            data={primaryCoin}
+            timestamp={coinDataTimestamp}
+            handleRefresh={setAsMainCoin}
+          />
+          <Stats
+            data={secondaryCoin}
+            timestamp={coinDataTimestamp}
+            handleRefresh={setAsMainCoin}
+          />
+          <Stats
+            data={thirdCoin}
+            timestamp={coinDataTimestamp}
+            handleRefresh={setAsMainCoin}
+          />
         </div>
         <div className="Half">
-          <BarChart number={1} data={marketCapChartData} />
-          <NextChart />
+          <BarChart data={marketCapChartData} />
+          <NextChart data={marketSupplyData} />
         </div>
         <div className="Third">
-          <Stats data={fourthCoin} handleRefresh={refreshCoin} />
-          <Stats data={fifthCoin} handleRefresh={refreshCoin} />
-          <Stats data={sixthCoin} handleRefresh={refreshCoin} />
+          <Stats
+            data={fourthCoin}
+            timestamp={coinDataTimestamp}
+            handleRefresh={setAsMainCoin}
+          />
+          <Stats
+            data={fifthCoin}
+            timestamp={coinDataTimestamp}
+            handleRefresh={setAsMainCoin}
+          />
+          <Stats
+            data={sixthCoin}
+            timestamp={coinDataTimestamp}
+            handleRefresh={setAsMainCoin}
+          />
         </div>
       </div>
 
