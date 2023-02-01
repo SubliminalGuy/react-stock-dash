@@ -80,6 +80,16 @@ ul {
   justify-content: space-between;
 }
 
+.about-container {
+  width: 60%;
+  margin: 7vh auto;
+  text-align: justify;
+}
+
+.about-text {
+  font-size: 1.1rem;
+}
+
 /* NAVBAR STYLING */
 
 .navbar-container {
