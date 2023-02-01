@@ -1,4 +1,5 @@
 import { useMediaQuery } from "@react-hook/media-query";
+import { Link } from "react-router-dom";
 
 function Navbar({ toggleColorMode, isDarkMode }) {
   const isSmallScreen = useMediaQuery("only screen and (max-width: 800px)");
@@ -16,7 +17,12 @@ function Navbar({ toggleColorMode, isDarkMode }) {
       <div className="navbar-sitemap-container">
         {!isSmallScreen && (
           <li className="navbar-page-list">
-            <ul>Main</ul> <ul>About</ul>
+            <Link className="router-link" to={"/"}>
+              <ul>Main</ul>
+            </Link>
+            <Link className="router-link" to={"/about"}>
+              <ul>About</ul>
+            </Link>
           </li>
         )}
       </div>

@@ -37,6 +37,10 @@ ul {
   list-style: none;
 }
 
+.router-link {
+  text-decoration: none;
+}
+
 /* MAIN LAYOUT */
 
 .App {
