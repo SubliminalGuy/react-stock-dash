@@ -39,6 +39,7 @@ ul {
 
 .router-link {
   text-decoration: none;
+  color: var(--font-color);
 }
 
 /* MAIN LAYOUT */
