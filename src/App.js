@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 import "./App.css";
 import Navbar from "./components/Navbar";
@@ -73,14 +73,18 @@ function App() {
         {showModal && (
           <div className="modal">
             <div className="modal-link-container">
-              <a className="modal-link" onClick={menuIconClick} href="/">
+              <Link className="modal-link" onClick={menuIconClick} to={"/"}>
                 Main
-              </a>
+              </Link>
             </div>
             <div className="modal-link-container">
-              <a className="modal-link" onClick={menuIconClick} href="/about">
+              <Link
+                className="modal-link"
+                onClick={menuIconClick}
+                to={"/about"}
+              >
                 About
-              </a>
+              </Link>
             </div>
           </div>
         )}
