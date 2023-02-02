@@ -1,6 +1,6 @@
 import { Pie } from "react-chartjs-2";
 
-function NextChart({ data }) {
+function PieChart({ data }) {
   return (
     <>
       <div className="sub-graph-two-container">
@@ -30,4 +30,4 @@ function NextChart({ data }) {
   );
 }
 
-export default NextChart;
+export default PieChart;

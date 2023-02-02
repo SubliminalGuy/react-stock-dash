@@ -84,6 +84,15 @@ ul {
   width: 60%;
   margin: 7vh auto;
   text-align: justify;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.about-avatar {
+  width: 16vw;
+  margin-top: 2rem;
+  margin-top: 2rem;
 }
 
 .about-text {
@@ -281,6 +290,8 @@ ul {
 .footer-links {
   display: flex;
   font-size: 1rem;
+  text-decoration: none;
+  color: var(--font-color);
 }
 
 /* LOADING ANIMATION */
@@ -324,6 +335,12 @@ ul {
   }
 
   .sub-graph-one-container {
+    border: 3px var(--border-color) solid;
+    width: 90%;
+    margin-bottom: 1rem;
+  }
+
+  .sub-graph-two-container {
     border: 3px var(--border-color) solid;
     width: 90%;
     margin-bottom: 1rem;
@@ -427,5 +444,24 @@ ul {
   #main-container-menu-timespan-dropdown {
     width: 40%;
     font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .main-container {
+    width: 240px;
+  }
+
+  .main-container-chart-container {
+    width: 240px;
+    height: 35vh;
+    margin: 1rem auto;
+  }
+
+  .stats-container {
+    border: 3px var(--border-color) solid;
+    width: 180px;
+    flex-direction: column;
+    margin-bottom: 1rem;
   }
 }

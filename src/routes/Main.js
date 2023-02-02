@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import MainGraph from "../components/MainGraph";
 import Stats from "../components/Stats";
 import BarChart from "../components/BarChart";
-import NextChart from "../components/NextChart";
+import PieChart from "../components/PieChart";
 
 // Import Helpers
 import { shortenRate, shortenBig } from "../helperFunctions/shortenRate";
@@ -21,7 +21,7 @@ export default function Main({ isDarkMode }) {
   const [thirdCoin, setThirdCoin] = useState(allCoinData.data[8]);
   const [fourthCoin, setFourthCoin] = useState(fakeAssetData.data[9]);
   const [fifthCoin, setFifthCoin] = useState(fakeAssetData.data[10]);
-  const [sixthCoin, setSixthCoin] = useState(fakeAssetData.data[16]);
+  const [sixthCoin, setSixthCoin] = useState(fakeAssetData.data[17]);
   const [coinDataTimestamp, setCoinDataTimestamp] = useState(
     allCoinData.timestamp
   );
@@ -85,7 +85,7 @@ export default function Main({ isDarkMode }) {
         setThirdCoin(data.data[8]);
         setFourthCoin(data.data[9]);
         setFifthCoin(data.data[10]);
-        setSixthCoin(data.data[16]);
+        setSixthCoin(data.data[17]);
       });
   }
 
@@ -155,7 +155,7 @@ export default function Main({ isDarkMode }) {
       </div>
       <div className="Half">
         <BarChart data={marketCapChartData} />
-        <NextChart data={marketSupplyData} />
+        <PieChart data={marketSupplyData} />
       </div>
       <div className="Third">
         <Stats

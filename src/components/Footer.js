@@ -1,19 +1,30 @@
 function Footer() {
   return (
     <div className="footer-container">
-      <li className="footer-links">
-        <ul>Copyleft</ul>
+      <li>
         <ul>
           <a
-            href="https://mastodon.sdf.org/@subliminal_guy"
+            className="footer-links"
+            href="https://github.com/SubliminalGuy"
             target="_blank"
             rel="noreferrer"
           >
-            Mastodon
+            github
           </a>
         </ul>
         <ul>
           <a
+            className="footer-links"
+            href="https://mastodon.sdf.org/@subliminal_guy"
+            target="_blank"
+            rel="noreferrer"
+          >
+            mastodon
+          </a>
+        </ul>
+        <ul>
+          <a
+            className="footer-links"
             href="https://50reactprojects.com"
             target="_blank"
             rel="noreferrer"
