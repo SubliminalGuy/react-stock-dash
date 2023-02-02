@@ -1,7 +1,7 @@
 import { useMediaQuery } from "@react-hook/media-query";
 import { Link } from "react-router-dom";
 
-function Navbar({ toggleColorMode, isDarkMode }) {
+function Navbar({ toggleColorMode, isDarkMode, menuIconClick }) {
   const isSmallScreen = useMediaQuery("only screen and (max-width: 800px)");
 
   return (
@@ -12,7 +12,7 @@ function Navbar({ toggleColorMode, isDarkMode }) {
           src="chart-increasing.png"
           alt="Increasing Chart"
         ></img>
-        <p className="navbar-site-name">Investicon</p>
+        <p className="navbar-site-name">Crypto Dashboard</p>
       </div>
       <div className="navbar-sitemap-container">
         {!isSmallScreen && (
@@ -29,6 +29,8 @@ function Navbar({ toggleColorMode, isDarkMode }) {
       <div className="navbar-icons-container">
         {isSmallScreen && (
           <img
+            className="navbar-menu-icon"
+            onClick={menuIconClick}
             src={isDarkMode ? "menu-white.png" : "menu-black.png"}
             alt="menu-icon"
           />

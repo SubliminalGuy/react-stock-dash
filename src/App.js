@@ -16,6 +16,15 @@ function App() {
     localStorage.getItem("myScheme") === "true"
   );
 
+  const [showModal, setShowModal] = useState(false);
+
+  function menuIconClick() {
+    const modal = !showModal;
+    console.log(modal);
+    setShowModal(modal);
+    console.log(showModal);
+  }
+
   function toggleColorMode() {
     const darkMode = !isDarkMode;
     setIsDarkMode(darkMode);
@@ -47,12 +56,34 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar toggleColorMode={toggleColorMode} isDarkMode={isDarkMode} />
-        <Routes>
-          <Route path="/" element={<Main isDarkMode={isDarkMode} />} />
-          <Route path="/about" element={<About />} />
-        </Routes>
-        <Footer />
+        {!showModal && (
+          <>
+            <Navbar
+              toggleColorMode={toggleColorMode}
+              menuIconClick={menuIconClick}
+              isDarkMode={isDarkMode}
+            />
+            <Routes>
+              <Route path="/" element={<Main isDarkMode={isDarkMode} />} />
+              <Route path="/about" element={<About />} />
+            </Routes>
+            <Footer />
+          </>
+        )}
+        {showModal && (
+          <div className="modal">
+            <div className="modal-link-container">
+              <a className="modal-link" onClick={menuIconClick} href="/">
+                Main
+              </a>
+            </div>
+            <div className="modal-link-container">
+              <a className="modal-link" onClick={menuIconClick} href="/about">
+                About
+              </a>
+            </div>
+          </div>
+        )}
       </BrowserRouter>
     </div>
   );
