@@ -85,12 +85,12 @@ function MainGraph({
               plugins: {
                 title: {
                   display: true,
-                  text: `${coin} ${timeSpanConverter(timespan)}`,
+                  text: `${coin} in EUR - ${timeSpanConverter(timespan)}`,
                   ...(isDarkMode && { color: "#e2e8f0" }),
                   ...(!isDarkMode && { color: "#1F2937" }),
                   font: {
                     family: "biryaniregular",
-                    size: 14,
+                    size: 13,
                   },
                 },
                 legend: {

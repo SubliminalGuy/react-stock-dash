@@ -11,9 +11,12 @@ import { humanTime } from "../helperFunctions/timeConverters";
 import filterAllAssets from "../helperFunctions/filterAllAssets";
 
 import { fakeAssetData } from "../utils/fakeAssetData";
+import { fakeEuroConvRate } from "../utils/fakeEuroConvRate";
 
 export default function Main({ isDarkMode }) {
   const baseUrl = process.env.REACT_APP_COINCAP_BASE_URL;
+
+  // STATES
 
   const [allCoinData, setAllCoinData] = useState(fakeAssetData);
   const [primaryCoin, setPrimaryCoin] = useState(allCoinData.data[0]);
@@ -33,8 +36,11 @@ export default function Main({ isDarkMode }) {
     filterAllAssets(fakeAssetData.data)
   );
 
-  // Prepares Raw Data for Chart.js Main Graph
+  const [euroConvRate, setEuroConvRate] = useState(
+    fakeEuroConvRate.data.rateUsd
+  );
 
+  // Prepares Raw Data for Chart.js Main Graph
   const [chartData, setChartData] = useState(null);
 
   // Prepares Data for Chart.js Market Cap Histogram
@@ -43,8 +49,10 @@ export default function Main({ isDarkMode }) {
     labels: marketCapData.map((item) => item.symbol),
     datasets: [
       {
-        label: "Market Cap USD",
-        data: marketCapData.map((item) => shortenBig(item.marketCapUsd)),
+        label: "Market Cap billion EUR",
+        data: marketCapData.map((item) =>
+          shortenBig(convertUsdToEur(item.marketCapUsd))
+        ),
       },
     ],
   };
@@ -58,6 +66,14 @@ export default function Main({ isDarkMode }) {
       },
     ],
   };
+
+  // HELPER FUNCTIONS
+
+  function convertUsdToEur(value) {
+    return value / euroConvRate;
+  }
+
+  // FUNCTIONS
 
   function handlePrimaryCoinSelection(e) {
     setMainCoinSelected(e.target.alt);
@@ -93,10 +109,19 @@ export default function Main({ isDarkMode }) {
     fetchAllCoins();
   }
 
+  function refreshEuroConvRate() {
+    fetch(`${baseUrl}/rates/euro`)
+      .then((res) => res.json())
+      .then((data) => {
+        setEuroConvRate(data.data.rateUsd);
+      });
+  }
+
   useEffect(() => {
     const mainCoin = mainCoinSelected;
     //const { date, newDate } = urlTime(mainGraphTimespan);
     refreshCoin();
+    refreshEuroConvRate();
     const timespan = mainGraphTimespan;
     const mainCoinHistUrl = `https://api.coincap.io/v2/assets/${mainCoin}/history?interval=d1`;
     let mainCoinHistData = [];
@@ -115,8 +140,10 @@ export default function Main({ isDarkMode }) {
         labels: histDataMainCoin.map((data) => humanTime(data.date)),
         datasets: [
           {
-            label: "$ Price",
-            data: histDataMainCoin.map((data) => shortenRate(data.priceUsd)),
+            label: "EUR Price",
+            data: histDataMainCoin.map((data) =>
+              shortenRate(convertUsdToEur(data.priceUsd))
+            ),
             borderColor: "rgb(53, 162, 235)",
             backgroundColor: "rgba(255, 99, 132, 0.5)",
             borderWidth: 2,
@@ -141,16 +168,19 @@ export default function Main({ isDarkMode }) {
           data={primaryCoin}
           timestamp={coinDataTimestamp}
           handleRefresh={setAsMainCoin}
+          euroConverter={convertUsdToEur}
         />
         <Stats
           data={secondaryCoin}
           timestamp={coinDataTimestamp}
           handleRefresh={setAsMainCoin}
+          euroConverter={convertUsdToEur}
         />
         <Stats
           data={thirdCoin}
           timestamp={coinDataTimestamp}
           handleRefresh={setAsMainCoin}
+          euroConverter={convertUsdToEur}
         />
       </div>
       <div className="Half">
@@ -162,16 +192,19 @@ export default function Main({ isDarkMode }) {
           data={fourthCoin}
           timestamp={coinDataTimestamp}
           handleRefresh={setAsMainCoin}
+          euroConverter={convertUsdToEur}
         />
         <Stats
           data={fifthCoin}
           timestamp={coinDataTimestamp}
           handleRefresh={setAsMainCoin}
+          euroConverter={convertUsdToEur}
         />
         <Stats
           data={sixthCoin}
           timestamp={coinDataTimestamp}
           handleRefresh={setAsMainCoin}
+          euroConverter={convertUsdToEur}
         />
       </div>
     </div>

@@ -20,7 +20,7 @@ function BarChart({ data }) {
             plugins: {
               title: {
                 display: true,
-                text: "Market Cap in bn $",
+                text: "Market Cap in billion EUR",
                 font: {
                   family: "biryaniregular",
                   size: 14,

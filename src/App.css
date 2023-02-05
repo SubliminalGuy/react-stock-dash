@@ -391,7 +391,7 @@ a {
   }
 
   .stats-cur-icon {
-    width: 32px;
+    width: 38px;
   }
 
   .Third {
@@ -495,5 +495,9 @@ a {
 
   .modal-link {
     font-size: 1.6rem;
+  }
+
+  .stats-cur-icon {
+    width: 36px;
   }
 }

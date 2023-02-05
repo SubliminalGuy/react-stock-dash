@@ -6,7 +6,7 @@ export default function About() {
         I'm David, a media engineer from Germany. I currently live in
         Benalmádena on the spanish Costa del Sol. I worked for every major
         tv-station in Germany and i'm still remote working for two public
-        broadcasters. So i guess i'm somewhat a digital nomad ;-)
+        broadcasters. So i guess i'm somewhat a digital nomad 😉
       </p>
       <p className="about-text">
         My experiences include video production, content development, live tv
@@ -18,7 +18,7 @@ export default function About() {
         The <strong>Crypto Dashboard</strong> is part of my professional
         portfolio. The prompt for this project came from{" "}
         <strong>#50 React Projects</strong> by Colby Fayock and i will continue
-        my journey with more projects from that resource. At least until if find
+        my journey with more projects from that resource. At least until i find
         something better to do ...
       </p>
     </div>

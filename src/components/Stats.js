@@ -1,7 +1,7 @@
 import { shortenRate } from "../helperFunctions/shortenRate";
 import { unixToHumanTime } from "../helperFunctions/timeConverters";
 
-function Stats({ data, timestamp, handleRefresh }) {
+function Stats({ data, timestamp, handleRefresh, euroConverter }) {
   function getIcon(id) {
     const iconChanger = {
       BTC: "/btc.svg",
@@ -34,7 +34,7 @@ function Stats({ data, timestamp, handleRefresh }) {
         <p className="stats-coin-date-time">{unixToHumanTime(timestamp)}</p>
       </div>
       <div className="stats-coin-value">
-        <p>$ {shortenRate(data.priceUsd)}</p>
+        <p>€ {shortenRate(euroConverter(data.priceUsd))}</p>
       </div>
     </div>
   );
