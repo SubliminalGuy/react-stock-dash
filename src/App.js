@@ -20,9 +20,7 @@ function App() {
 
   function menuIconClick() {
     const modal = !showModal;
-    console.log(modal);
     setShowModal(modal);
-    console.log(showModal);
   }
 
   function toggleColorMode() {
