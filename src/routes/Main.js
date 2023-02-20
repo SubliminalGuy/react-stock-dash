@@ -36,6 +36,8 @@ export default function Main({ isDarkMode }) {
     filterAllAssets(fakeAssetData.data)
   );
 
+  console.log(mainCoinSelected);
+
   const [euroConvRate, setEuroConvRate] = useState(
     fakeEuroConvRate.data.rateUsd
   );
@@ -96,12 +98,14 @@ export default function Main({ isDarkMode }) {
         setMarketCapData(filterAllAssets(data.data));
         setAllCoinData(data);
         setCoinDataTimestamp(data.timestamp);
-        setPrimaryCoin(data.data[0]);
-        setSecondaryCoin(data.data[1]);
-        setThirdCoin(data.data[8]);
-        setFourthCoin(data.data[9]);
-        setFifthCoin(data.data[10]);
-        setSixthCoin(data.data[18]);
+        setPrimaryCoin(...data.data.filter((el) => el.id === "bitcoin"));
+        setSecondaryCoin(...data.data.filter((el) => el.id === "ethereum"));
+        setThirdCoin(...data.data.filter((el) => el.id === "polygon"));
+        setFourthCoin(...data.data.filter((el) => el.id === "dogecoin"));
+        setFifthCoin(...data.data.filter((el) => el.id === "solana"));
+        setSixthCoin(
+          ...data.data.filter((el) => el.id === "multi-collateral-dai")
+        );
       });
   }
 
