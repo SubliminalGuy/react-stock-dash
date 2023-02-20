@@ -101,7 +101,7 @@ export default function Main({ isDarkMode }) {
         setThirdCoin(data.data[8]);
         setFourthCoin(data.data[9]);
         setFifthCoin(data.data[10]);
-        setSixthCoin(data.data[17]);
+        setSixthCoin(data.data[18]);
       });
   }
 
