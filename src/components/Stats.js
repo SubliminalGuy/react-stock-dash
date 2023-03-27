@@ -31,13 +31,16 @@ function Stats({ data, timestamp, handleRefresh, euroConverter }) {
 
       <div className="stats-icon-date-container">
         <img
+          data-testid="coin-image"
           src={getIcon(data.symbol)}
           alt={data.symbol}
           className="stats-cur-icon"
         />
-        <p className="stats-coin-date-time">{unixToHumanTime(timestamp)}</p>
+        <p data-testid="time" className="stats-coin-date-time">
+          {unixToHumanTime(timestamp)}
+        </p>
       </div>
-      <div className="stats-coin-value">
+      <div data-testid="euro-value" className="stats-coin-value">
         <p>
           {changeToEuro("€")} {shortenRate(euroConverter(data.priceUsd))}
         </p>
