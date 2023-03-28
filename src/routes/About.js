@@ -10,10 +10,11 @@ export default function About() {
       </p>
       <p className="about-text">
         My experiences include video production, content development, live tv
-        production and editing. 5 years ago i rediscovered my fascination for
-        programming and web development. I bootcamped in Responsive Web Design,
-        React, Vue and Svelte and developed dozens of applications for training
-        purposes.
+        production and editing. I wrote and directed three documentaries on
+        contemporary art and remixing. 5 years ago i rediscovered my fascination
+        for programming and web development. I bootcamped in Responsive Web
+        Design, React, Vue and Svelte and developed dozens of applications for
+        training purposes.
       </p>
       <p className="about-text">
         The <strong>Crypto Dashboard</strong> is part of my professional
